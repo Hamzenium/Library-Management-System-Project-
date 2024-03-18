@@ -1,6 +1,8 @@
 package Users;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Items.Item;
 
@@ -12,7 +14,7 @@ public class User {
 	private ArrayList<Item> books;
 	private Boolean canBorrow;
 	private Boolean verify;
-	private Item requestBook;
+	private HashMap<Item,Boolean> requestBook;
 	
 	public User(String psw, String email) {
 		this.books = new ArrayList<Item>();
@@ -21,7 +23,7 @@ public class User {
 		this.penalty = 0;
 		this.canBorrow = true;
 		this.verify = false;
-		this.requestBook = null;
+		this.requestBook = new HashMap<Item,Boolean>();
 	}
 	
 	public void subscribe() {
@@ -84,7 +86,7 @@ public class User {
 		return books;
 	}
 
-	public void setBooks(Item book) {
+	public void addBooks(Item book) {
 		this.books.add(book);
 	}
 
@@ -96,12 +98,35 @@ public class User {
 		this.verify = verify;
 	}
 
-	public Item getRequestBook() {
-		return requestBook;
+	public String getRequestBookList() {
+		
+		HashMap<Item, Boolean> list = this.requestBook;
+		String pointer = "";
+		String result = "The list of requested Books for: "+this.getEmail();
+		for(Map.Entry<Item, Boolean> entry : list.entrySet()) {
+		    Item item = entry.getKey();
+		    Boolean status = entry.getValue();
+		    
+		    if(status == true) {
+		    	pointer = "Granted";
+		    }
+		    else{
+		    	pointer = "Pending";
+		    }
+		    result += " Name: " + item.getName() + " Status: " + pointer + "\n";
+		}
+		return result;
+
+
+	}
+	public void addRequestBook(Item item) {
+		this.requestBook.put(item, false);
+
+	}
+	public void updateRequestBook(Item item) {
+		this.requestBook.put(item,true);
+
 	}
 
-	public void setRequestBook(Item requestBook) {
-		this.requestBook = requestBook;
-	}
 
 }
