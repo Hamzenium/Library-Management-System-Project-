@@ -1,5 +1,7 @@
 package Users;
 
+import java.util.HashMap;
+
 import Items.Item;
 
 public class ManagementTeam extends User {
@@ -16,11 +18,10 @@ public class ManagementTeam extends User {
 		user.setCanBorrow(enableItem);;
 	}
 	
-	public void addItem(User user) throws Exception{
-		Item book = user.getRequestBook();
+	public void addItem(User user, Item book) throws Exception{
 		if(user.getVerify() && user.getCanBorrow()) {
-			user.setBooks(book);
-			user.setRequestBook(null);
+			user.updateRequestBook(book);
+			user.addBooks(book);
 		}
 		else {
 			throw new Exception("User is still not verified and not cannot borrow book");
