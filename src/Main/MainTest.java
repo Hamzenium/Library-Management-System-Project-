@@ -15,11 +15,14 @@ public class MainTest {
 		
 		ManagementTeam team = new ManagementTeam("Momina234", "momina Mustehsan");
 		
-		team.enableItem(user1, true);
+		team.enableItem(user1, javaBook);
+		team.enableItem(user1, systemdesginBook);
 		team.verifyClient(user1, true);
-		team.addItem(user1, javaBook);
-		user1.getRequestBookList();
-		System.out.println(user1.getRequestBookList());
+		user1.itemPayment(javaBook);
+		user1.itemPayment(systemdesginBook);
+		user1.addBooks(javaBook);
+		user1.addBooks(systemdesginBook);
+		System.out.println(user1.getBookList());
 	}
 
 

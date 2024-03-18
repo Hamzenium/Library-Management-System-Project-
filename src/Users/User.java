@@ -14,7 +14,8 @@ public class User {
 	private ArrayList<Item> books;
 	private Boolean canBorrow;
 	private Boolean verify;
-	private HashMap<Item,Boolean> requestBook;
+	protected HashMap<Item,Boolean> requestBook;
+	private HashMap<Item,Boolean> payment;
 	
 	public User(String psw, String email) {
 		this.books = new ArrayList<Item>();
@@ -24,6 +25,7 @@ public class User {
 		this.canBorrow = true;
 		this.verify = false;
 		this.requestBook = new HashMap<Item,Boolean>();
+		this.payment = new HashMap<Item,Boolean>();
 	}
 	
 	public void subscribe() {
@@ -86,9 +88,19 @@ public class User {
 		return books;
 	}
 
-	public void addBooks(Item book) {
-		this.books.add(book);
+	public String addBooks(Item book) throws Exception {
+		if(this.payment.get(book) == true) {
+			this.books.add(book);
+			return "Your book has been added to your list";
+		}
+		else {
+			throw new Exception("Failed: Book not added.");
+		}
 	}
+	public Boolean getBookStatus(Item book) {
+		return this.requestBook.get(book);
+	}
+
 
 	public Boolean getVerify() {
 		return verify;
@@ -119,9 +131,36 @@ public class User {
 
 
 	}
-	public void addRequestBook(Item item) {
-		this.requestBook.put(item, false);
+	public String getBookList() {
+		
+		return this.books.toString();
 
+
+	}
+	public String addRequestBook(Item item) {
+	        this.requestBook.put(item, false);
+	        this.payment.put(item, false);
+	        return "Your book has been requested";
+	}
+
+
+	public String itemPayment(Item item) throws Exception {
+	
+		if(this.getBookStatus(item) == true) {
+			
+			if(this.getVerify() && this.canBorrow) {
+				this.payment.put(item, true);
+				this.requestBook.put(item, true);
+				return "Your Payment has been successfull and the Item has been added";
+			}
+			else {
+				throw new Exception("Your have not been granted access to the book or not verified yet.");
+			}
+			
+		}
+		else {
+			throw new Exception("Your Book's status is still pending");
+		}
 	}
 	public void updateRequestBook(Item item) {
 		this.requestBook.put(item,true);
