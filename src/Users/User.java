@@ -1,3 +1,4 @@
+package Users;
 
 public class User {
 
@@ -7,12 +8,12 @@ public class User {
 	private booksRented[] books;
 	private Boolean canBorrow;
 	
-	public User(String psw, String email,int penalty,booksRented books, Boolean canBorrow) {
-		this.setBooks(new booksRented[50]);;
-		this.setPsw(psw) ;
-		this.setEmail(email);
-		this.setPenalty(penalty);
-		this.setCanBorrow(canBorrow);
+	public User(String psw, String email) {
+		this.books = new booksRented[50];
+		this.psw = psw ;
+		this.email = email;
+		this.penalty = 0;
+		this.canBorrow = true;
 	}
 	
 	public void subscribe() {
