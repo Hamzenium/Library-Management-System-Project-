@@ -12,6 +12,7 @@ public class User {
 	private ArrayList<Item> books;
 	private Boolean canBorrow;
 	private Boolean verify;
+	private Item requestBook;
 	
 	public User(String psw, String email) {
 		this.books = new ArrayList<Item>();
@@ -20,6 +21,7 @@ public class User {
 		this.penalty = 0;
 		this.canBorrow = true;
 		this.verify = false;
+		this.requestBook = null;
 	}
 	
 	public void subscribe() {
@@ -92,6 +94,14 @@ public class User {
 
 	public void setVerify(Boolean verify) {
 		this.verify = verify;
+	}
+
+	public Item getRequestBook() {
+		return requestBook;
+	}
+
+	public void setRequestBook(Item requestBook) {
+		this.requestBook = requestBook;
 	}
 
 }

@@ -12,8 +12,16 @@ public class ManagementTeam extends User {
 		user.setVerify(verify);
 	}
 	
-	public void addItem(Item item, User user) {
-		user.setBooks(item);
+	public void addItem(Item item, User user) throws Exception{
+		Item book = user.getRequestBook();
+		if(user.getVerify() && user.getCanBorrow()) {
+			user.setBooks(book);
+			user.setRequestBook(null);
+		}
+		else {
+			throw new Exception("User is still not verified and not cannot borrow book");
+		}
+
 	}
 
 	public void enableItem(User user, Boolean enableItem) {
