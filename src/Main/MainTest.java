@@ -1,5 +1,4 @@
 package Main;
-import Users.User;
 import Users.Visitors;
 
 public class MainTest {

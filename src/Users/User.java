@@ -1,15 +1,17 @@
 package Users;
 
+import Items.Item;
+
 public class User {
 
 	private String psw;
 	private String email;
 	private int penalty;
-	private booksRented[] books;
+	private Item[] books;
 	private Boolean canBorrow;
 	
 	public User(String psw, String email) {
-		this.books = new booksRented[50];
+		this.books = new Item[50];
 		this.psw = psw ;
 		this.email = email;
 		this.penalty = 0;
@@ -72,11 +74,11 @@ public class User {
 		this.canBorrow = canBorrow;
 	}
 
-	public booksRented[] getBooks() {
+	public Item[] getBooks() {
 		return books;
 	}
 
-	public void setBooks(booksRented[] books) {
+	public void setBooks(Item[] books) {
 		this.books = books;
 	}
 
