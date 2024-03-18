@@ -1,5 +1,7 @@
 package Users;
 
+import java.util.ArrayList;
+
 import Items.Item;
 
 public class User {
@@ -7,15 +9,17 @@ public class User {
 	private String psw;
 	private String email;
 	private int penalty;
-	private Item[] books;
+	private ArrayList<Item> books;
 	private Boolean canBorrow;
+	private Boolean verify;
 	
 	public User(String psw, String email) {
-		this.books = new Item[50];
+		this.books = new ArrayList<Item>();
 		this.psw = psw ;
 		this.email = email;
 		this.penalty = 0;
 		this.canBorrow = true;
+		this.verify = false;
 	}
 	
 	public void subscribe() {
@@ -74,12 +78,20 @@ public class User {
 		this.canBorrow = canBorrow;
 	}
 
-	public Item[] getBooks() {
+	public ArrayList<Item> getBooks() {
 		return books;
 	}
 
-	public void setBooks(Item[] books) {
-		this.books = books;
+	public void setBooks(Item book) {
+		this.books.add(book);
+	}
+
+	public Boolean getVerify() {
+		return verify;
+	}
+
+	public void setVerify(Boolean verify) {
+		this.verify = verify;
 	}
 
 }
