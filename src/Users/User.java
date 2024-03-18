@@ -16,6 +16,8 @@ public class User {
 	private Boolean verify;
 	protected HashMap<Item,Boolean> requestBook;
 	private HashMap<Item,Boolean> payment;
+	private HashMap<Item,Double> discount;
+
 	
 	public User(String psw, String email) {
 		this.books = new ArrayList<Item>();
@@ -26,6 +28,7 @@ public class User {
 		this.verify = false;
 		this.requestBook = new HashMap<Item,Boolean>();
 		this.payment = new HashMap<Item,Boolean>();
+		this.discount = new HashMap<Item,Double>();
 	}
 	
 	public void subscribe() {
@@ -140,6 +143,7 @@ public class User {
 	public String addRequestBook(Item item) {
 	        this.requestBook.put(item, false);
 	        this.payment.put(item, false);
+	        this.discount.put(item, 5.0);
 	        return "Your book has been requested";
 	}
 
@@ -151,7 +155,8 @@ public class User {
 			if(this.getVerify() && this.canBorrow) {
 				this.payment.put(item, true);
 				this.requestBook.put(item, true);
-				return "Your Payment has been successfull and the Item has been added";
+				this.addBooks(item);
+				return "Your Payment has been successfull and the Item has been added "+this.getDiscount(item);
 			}
 			else {
 				throw new Exception("Your have not been granted access to the book or not verified yet.");
@@ -166,6 +171,13 @@ public class User {
 		this.requestBook.put(item,true);
 
 	}
-
+	public void applyDiscount(Item item, Double value) {
+		this.discount.put(item, value);
+	}
+	public Double getDiscount(Item item) {
+	
+		System.out.println(this.discount.get(item));
+		return this.discount.get(item);
+	}
 
 }

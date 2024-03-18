@@ -1,8 +1,8 @@
 package Payment;
-
 import Items.Item;
+import Users.User;
 
 public interface PaymentInterface {
-
-	void makePayment(Item item);
+	
+	void makePayment(User user, Item item) throws Exception;
 }
