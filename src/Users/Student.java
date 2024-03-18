@@ -1,28 +1,31 @@
 package Users;
 import Items.Item;
+
+import java.util.ArrayList;
+
 import Courses.Course;
 public class Student extends User {
 
-	private Course[] coursesTaking;
-	private Item[] courseTextBooks;
+	private ArrayList<Course> coursesTaking;
+	private ArrayList<Item> courseTextBooks;
 	
 	public Student(String psw, String email) {
 		super(psw, email);
-		this.coursesTaking = new Course[50];
-		this.courseTextBooks = new Item[50];
+		this.coursesTaking = new ArrayList<Course>();;
+		this.courseTextBooks = new ArrayList<Item>();
 	}
 	
-	public Course[] getCoursesTaking() {
+	public ArrayList<Course> getCoursesTaking() {
 		return coursesTaking;
 	}
-	public void setCoursesTaking(Course[] coursesTaking) {
-		this.coursesTaking = coursesTaking;
+	public void setCoursesTaking(Course course) {
+		this.coursesTaking.add(course);
 	}
-	public Item[] getCourseTextBooks() {
+	public ArrayList<Item> getCourseTextBooks() {
 		return courseTextBooks;
 	}
-	public void setCourseTextBooks(Item[] courseTextBooks) {
-		this.courseTextBooks = courseTextBooks;
+	public void setCourseTextBooks(Item courseTextBook) {
+		this.courseTextBooks.add(courseTextBook);
 	}
 	
 

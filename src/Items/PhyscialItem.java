@@ -6,8 +6,8 @@ public class PhyscialItem extends Item {
 	private String dueDate;
 	private Boolean itemStatus;
 	
-	public PhyscialItem(int id, String location, Boolean availableForPurchase, int copies, String dueDate, Boolean itemStatus) {
-		super(id,location,availableForPurchase);
+	public PhyscialItem(int id, String location, Boolean availableForPurchase, String name, int copies, String dueDate, Boolean itemStatus) {
+		super(id,location,availableForPurchase,name);
 		this.copies = copies;
 		this.dueDate = dueDate;
 		this.itemStatus = itemStatus;

@@ -5,12 +5,14 @@ public class Item {
 	private int identificationNumber;
 	private String location;
 	private Boolean availableForPurchase;
+	private String name;
 	
-	public Item(int id, String location, Boolean availableForPurchase){
+    public Item(int id, String location, Boolean availableForPurchase,String name){
 		
 		this.identificationNumber = id;
 		this.location = location;
 		this.availableForPurchase = availableForPurchase;
+		this.name = name;
 		
 	}
 
@@ -36,5 +38,13 @@ public class Item {
 
 	public void setAvailableForPurchase(Boolean availableForPurchase) {
 		this.availableForPurchase = availableForPurchase;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
