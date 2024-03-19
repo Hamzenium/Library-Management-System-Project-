@@ -3,11 +3,10 @@ package Payment;
 import Items.Item;
 import Users.User;
 
-public abstract class PaymentDecorator implements PaymentInterface {
-    protected PaymentInterface payment;
+public abstract class PaymentDecorator implements Payable {
+    protected Payable payment;
 
-    public PaymentDecorator(PaymentInterface payment) {
-        this.payment = payment;
+    public PaymentDecorator(Payable payment) {
     }
 
     @Override

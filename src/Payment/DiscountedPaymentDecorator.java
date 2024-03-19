@@ -5,8 +5,11 @@ import Users.User;
 
 public class DiscountedPaymentDecorator extends PaymentDecorator {
 
-    public DiscountedPaymentDecorator(PaymentInterface payment) {
-        super(payment);
+	double discount;
+    public DiscountedPaymentDecorator(Payable payment) {
+        
+    	super(payment);
+    	this.discount = 0.8;
     }
 
     @Override
@@ -15,4 +18,6 @@ public class DiscountedPaymentDecorator extends PaymentDecorator {
         user.applyDiscount(item, result);
         user.itemPayment(item);
     }
+
+
 }
