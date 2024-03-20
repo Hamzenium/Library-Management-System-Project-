@@ -3,7 +3,7 @@ package Payment;
 import Items.Item;
 import Users.User;
 
-public class Payment implements PaymentInterface {
+public class Payment implements Payable{
 	
 
     @Override

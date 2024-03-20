@@ -1,6 +1,6 @@
 package Items;
 
-public class Item {
+public abstract class Item {
 
 	private int identificationNumber;
 	private String location;
@@ -12,6 +12,13 @@ public class Item {
 		this.identificationNumber = id;
 		this.location = location;
 		this.availableForPurchase = availableForPurchase;
+		this.name = name;
+		
+	}
+    
+public Item(int id,String name){
+		
+		this.identificationNumber = id;
 		this.name = name;
 		
 	}
@@ -47,4 +54,6 @@ public class Item {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public abstract String getDueDates();
 }

@@ -4,8 +4,11 @@ import Items.Item;
 import Users.User;
 
 public class PenaltyPaymentDecorator extends PaymentDecorator {
-    public PenaltyPaymentDecorator(PaymentInterface payment) {
+	
+	double penalty ;
+    public PenaltyPaymentDecorator(Payable payment) {
         super(payment);
+        this.penalty = 1.2;
     }
 
     @Override
