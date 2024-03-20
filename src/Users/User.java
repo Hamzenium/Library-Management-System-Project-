@@ -1,5 +1,6 @@
 package Users;
 
+import LibraryManagementSystem.LibraryManagementSystem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +8,8 @@ import java.util.Map;
 import Items.Item;
 
 public class User {
-
+	
+	
 	private String psw;
 	private String email;
 	private int penalty;
@@ -19,7 +21,7 @@ public class User {
 	private HashMap<Item,Double> discount;
 
 	
-	public User(String psw, String email) {
+	public User(String email, String psw) {
 		this.books = new ArrayList<Item>();
 		this.psw = psw ;
 		this.email = email;
@@ -42,7 +44,29 @@ public class User {
 	public void verify() {
 		
 	}
-	public void login() {
+	public void login (String email, String psw) throws Exception {
+		
+		if (this.email.equals(email) && this.psw.equals(psw)) {
+			
+			LibraryManagementSystem system = LibraryManagementSystem.getInstance();
+		    system.getLoggedInUsers().add(this);
+		    system.showDueDates(this);
+		    System.out.println(system.showDueDates(this));
+			
+		}
+		
+		else {
+			
+			throw new Exception("Login failed");
+			
+		}	
+			
+		}
+		
+	public void logout() {
+		
+		LibraryManagementSystem system = LibraryManagementSystem.getInstance();
+		system.getLoggedInUsers().remove(this);
 		
 	}
 	public void regsiter() {

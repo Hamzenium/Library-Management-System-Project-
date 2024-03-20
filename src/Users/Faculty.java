@@ -8,8 +8,8 @@ public class Faculty extends User{
 	private Item[] booksUsed;
 	private Course[] coursesTeaching;
 	
-	public Faculty(String psw, String email) {
-		super(psw, email);
+	public Faculty(String email, String psw) {
+		super(email, psw);
 		this.booksUsed =  new Item[50];
 		this.coursesTeaching = new Course[50];
 	}
