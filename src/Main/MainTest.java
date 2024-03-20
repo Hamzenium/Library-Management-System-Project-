@@ -1,49 +1,20 @@
 package Main;
 import Courses.Course;
 import Items.Book;
-<<<<<<< HEAD
-=======
 import Items.CourseTextbook;
 import Items.OnlineBook;
 import LibraryManagementSystem.LibraryManagementSystem;
 import Payment.DiscountedPaymentDecorator;
+import Payment.Payable;
 import Payment.Payment;
 import Users.Faculty;
->>>>>>> Abdullah
 import Users.ManagementTeam;
 import Users.Student;
 import Users.User;
 import Users.Visitors;
-import Payment.Payable;
-import Payment.DiscountedPaymentDecorator;
-import Payment.Payment;
-import Payment.PaymentDecorator;
-import Payment.PenaltyPaymentDecorator;
 
 public class MainTest {
 
-<<<<<<< HEAD
-	public static void main(String[] args) throws Exception {
-	    
-	    Visitors user1 = new Visitors("Hamza13", "hamza.sohail29@gmail.com");
-	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
-	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
-	    user1.addRequestBook(javaBook);
-	    user1.addRequestBook(systemdesginBook);
-	    
-	    ManagementTeam team = new ManagementTeam("Momina234", "momina");
-	 // Create a basic payment object
-	 // Create a basic payment object
-	    Payable payment = new Payment(); // Create a basic payment object
-	    Payable payment1 = new DiscountedPaymentDecorator(new Payment());// Decorate with DiscountedPaymentDecorator
-
-//	    // Decorate the discounted payment object with PenaltyPaymentDecorator
-	    team.enableItem(user1, javaBook);
-	    team.enableItem(user1, systemdesginBook);
-	    team.verifyClient(user1, true);
-	    discountedPayment2.makePayment(user1, javaBook);
-	    System.out.println(user1.getBookList());
-=======
 public static void main(String[] args) throws Exception {
 //	    
 //	    Visitors user1 = new Visitors("Hamza13", "hamza.sohail29@gmail.com");
@@ -128,12 +99,26 @@ public static void main(String[] args) throws Exception {
            Book b6 = new Book(7, "library", true, 20, "March 20", true, "new book");
            
            
+
+//           to first add the course
+// the user first needs to be verified by the mangment team,
+// then the user can add request book method to request for a book
+           //the the managemnt team needs to enable the item to be borrowed by the person
+           // the user needs to then add pay for the item 
+           // then the user can add the item which being the book to their book list
+          user.addRequestBook(b6);
+          ManagementTeam team = new ManagementTeam("Momina234", "Momina");
+          Payable payment = new Payment();
+          Payable payment2 = new DiscountedPaymentDecorator(payment); // Applying discount
+          
+          team.verifyClient(user, true);
+          team.enableItem(user, b6);
+          payment2.makePayment(user, b6);
           user.addBooks(b6);
-           
+//           
            user.logout();
            user.login("bob", "psw");
 	
->>>>>>> Abdullah
 	}
 
 
@@ -144,3 +129,7 @@ public static void main(String[] args) throws Exception {
    
 
 }
+
+   
+
+
