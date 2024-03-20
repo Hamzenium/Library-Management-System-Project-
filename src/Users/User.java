@@ -203,5 +203,39 @@ public class User {
 		System.out.println(this.discount.get(item));
 		return this.discount.get(item);
 	}
-
+	
+	
+	public String requestNewBook(String bookName) throws Exception {
+		
+		LibraryManagementSystem system = LibraryManagementSystem.getInstance();
+		
+		for (int i=0; i<system.getOnlineBooks().size(); i++) {
+			
+			
+			if (system.getOnlineBooks().get(i).getName().equals(bookName)) {
+				
+				throw new Exception("Book already exists");
+			}
+			
+		}
+				
+				ManagementTeam managementTeam = ManagementTeam.getInstance("email", "psw");
+				
+				managementTeam.addRequestedBook(bookName);
+				
+				for (int j=0; j<system.getCourse().size(); j++) {
+					
+					
+					if (system.getCourse().get(j).getTextBook().getName().equals(bookName)) {
+						
+						return "Priority for requested book is high";
+					}
+					
+				}
+				
+				return "Priority for requested book is low";
+				
+			}
+		
+	
 }

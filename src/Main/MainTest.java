@@ -107,7 +107,7 @@ public static void main(String[] args) throws Exception {
            // the user needs to then add pay for the item 
            // then the user can add the item which being the book to their book list
           user.addRequestBook(b6);
-          ManagementTeam team = new ManagementTeam("Momina234", "Momina");
+          ManagementTeam team = ManagementTeam.getInstance("email", "psw");
           Payable payment = new Payment();
           Payable payment2 = new DiscountedPaymentDecorator(payment); // Applying discount
           
