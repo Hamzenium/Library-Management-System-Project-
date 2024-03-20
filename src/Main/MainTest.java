@@ -119,6 +119,9 @@ public static void main(String[] args) throws Exception {
            user.logout();
            user.login("bob", "psw");
 	
+          System.out.println(system.showDueDates(user));
+          System.out.println(system.getLoggedInUsers());
+          System.out.println(system.getOnlineBooks());
 	}
 
 
