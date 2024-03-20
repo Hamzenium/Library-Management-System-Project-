@@ -36,4 +36,9 @@ public class PhyscialItem extends Item {
 	public void setItemStatus(Boolean itemStatus) {
 		this.itemStatus = itemStatus;
 	}
+
+	@Override
+	public String getDueDates() {
+		return this.dueDate;
+	}
 }

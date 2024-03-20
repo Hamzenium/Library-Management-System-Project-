@@ -4,8 +4,8 @@ import Items.Item;
 
 public class ManagementTeam extends User {
 
-	public ManagementTeam(String psw, String email) {
-		super(psw, email);
+	public ManagementTeam(String email, String psw) {
+		super(email, psw);
 	}
 	
 	public void verifyClient(User user, Boolean verify) {

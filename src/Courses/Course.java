@@ -3,7 +3,6 @@ package Courses;
 
 public class Course {
 	
-	//test
 
 	private String courseName;
 	private int courseID;
