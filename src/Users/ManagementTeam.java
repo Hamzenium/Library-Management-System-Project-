@@ -1,10 +1,17 @@
 package Users;
 
 import Items.Item;
+import LibraryManagementSystem.LibraryManagementSystem;
+
+import java.util.Random;
+
+import Items .*;
 
 public class ManagementTeam extends User {
+	
+	private static ManagementTeam instance;
 
-	public ManagementTeam(String email, String psw) {
+	private ManagementTeam(String email, String psw) {
 		super(email, psw);
 	}
 	
@@ -15,6 +22,23 @@ public class ManagementTeam extends User {
 	public void enableItem(User user, Item item) {
 			user.requestBook.put(item, true);
 
+	}
+	
+	public static ManagementTeam getInstance(String email, String psw) {
+		if (instance == null) {
+			instance = new ManagementTeam(email, psw);
+		}
+		return instance;
+	}
+	
+	public void addRequestedBook(String bookName) {
+		
+		Random random = new Random();
+		
+		int randomNumber = random.nextInt(101);
+		
+		OnlineBook book = new OnlineBook(randomNumber, bookName);
+		
 	}
 
 	

@@ -3,6 +3,7 @@ package LibraryManagementSystem;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Courses.Course;
 import Items.Item;
 import Items.OnlineBook;
 import Users.Student;
@@ -14,11 +15,13 @@ public class LibraryManagementSystem {
 	private static LibraryManagementSystem instance;
 	private  ArrayList<User> loggedInUsers;
 	private  ArrayList<OnlineBook> onlineBooks;
+	private  ArrayList<Course> course;
 	
 	private LibraryManagementSystem() {
 		
 		this.onlineBooks = new ArrayList<>();
 		this.loggedInUsers = new ArrayList<>();
+		this.course =  new ArrayList<>();
 	}
 	
 	public static LibraryManagementSystem getInstance() {
@@ -36,6 +39,14 @@ public class LibraryManagementSystem {
 		return onlineBooks;
 	}
 	
+	public ArrayList<Course> getCourse() {
+		return course;
+	}
+
+	public void addCourse(Course course) {
+		this.course.add(course);
+	}
+
 	public  HashMap<Item, String> showDueDates(User user){
 		
 		HashMap<Item, String> dueDates = new HashMap<>();
