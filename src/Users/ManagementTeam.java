@@ -22,6 +22,7 @@ public class ManagementTeam extends User {
 	
 	public void enableItem(User user, Item item) {
 			user.requestBook.put(item, true);
+			user.setNotifications(item);
 
 	}
 	
