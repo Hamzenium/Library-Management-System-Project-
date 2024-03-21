@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import Items.Item;
 
@@ -24,7 +25,7 @@ public class User implements Observer{
 	private HashMap<Item,Boolean> payment;
 	private HashMap<Item,Double> discount;
 	private HashSet<Newsletter> newsletterList;
-	private HashSet<Item> notifications;
+	private Stack<Item> notifications;
 
 	public User(String email, String psw) {
 		this.books = new ArrayList<Item>();
@@ -37,7 +38,7 @@ public class User implements Observer{
 		this.payment = new HashMap<Item,Boolean>();
 		this.discount = new HashMap<Item,Double>();
 		this.newsletterList = new HashSet<Newsletter>();
-		this.notifications =  new HashSet<Item>();
+		this.notifications =  new Stack<Item>();
 	}
 
 	
@@ -261,11 +262,11 @@ public class User implements Observer{
 	        System.out.println("Unsubscribed from newsletter: " + newsletter.getName());
 	    }
 
-		public HashSet<Item> getNotifications() {
+		public Stack<Item> getNotifications() {
 			return notifications;
 		}
 		public void clearNotifications() {
-			notifications.clear();;
+			notifications.clear();;;
 		}
 
 		public void setNotifications(Item notifications) {
