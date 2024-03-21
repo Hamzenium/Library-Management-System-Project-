@@ -24,8 +24,8 @@ public class User implements Observer{
 	private HashMap<Item,Boolean> payment;
 	private HashMap<Item,Double> discount;
 	private HashSet<Newsletter> newsletterList;
+	private HashSet<Item> notifications;
 
-	
 	public User(String email, String psw) {
 		this.books = new ArrayList<Item>();
 		this.psw = psw ;
@@ -37,7 +37,9 @@ public class User implements Observer{
 		this.payment = new HashMap<Item,Boolean>();
 		this.discount = new HashMap<Item,Double>();
 		this.newsletterList = new HashSet<Newsletter>();
+		this.notifications =  new HashSet<Item>();
 	}
+
 	
 	public void subscribe() {
 		
@@ -258,6 +260,17 @@ public class User implements Observer{
 	        newsletterList.remove(newsletter);
 	        System.out.println("Unsubscribed from newsletter: " + newsletter.getName());
 	    }
+
+		public HashSet<Item> getNotifications() {
+			return notifications;
+		}
+		public void clearNotifications() {
+			notifications.clear();;
+		}
+
+		public void setNotifications(Item notifications) {
+			this.notifications.add(notifications);
+		}
 		
 	
 }
