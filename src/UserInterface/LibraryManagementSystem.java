@@ -49,8 +49,8 @@ public class LibraryManagementSystem extends JFrame implements ActionListener {
         // Create a new user object with the provided email and password
         currentUser = new User(email, password);
         System.out.println(currentUser);
-        CourseTextbook b2 = new CourseTextbook(5, "Calc3", "Maths2");
-        CourseTextbook b3 = new CourseTextbook(5, "Calc1", "Maths1");
+        CourseTextbook b2 = new CourseTextbook(5, "Calc3", "Maths2", "Maths");
+        CourseTextbook b3 = new CourseTextbook(5, "Calc1", "Maths1", "Maths");
         currentUser.addRequestBook(b2);
         currentUser.addRequestBook(b3);
         // Update the DashboardPage with the ;user information

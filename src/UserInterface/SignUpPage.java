@@ -44,7 +44,7 @@ public class SignUpPage extends JPanel {
 
                 // Create a new user object
                 User newUser = new User(email, password);
-                CourseTextbook b1 = new CourseTextbook(5, "Calc2", "Maths");
+                CourseTextbook b1 = new CourseTextbook(5, "Calc2", "Maths", "Maths");
                 newUser.addRequestBook(b1);
 
                 // Dispatch "Sign Up Successful" action command

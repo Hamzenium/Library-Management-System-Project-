@@ -8,7 +8,7 @@ public class Course {
 
 	private String courseName;
 	private int courseID;
-	private CourseTextbook textbook;
+	private String textbook ="";
 	
 	public Course(String name, int id) {
 		this.courseName = name;
@@ -32,13 +32,13 @@ public class Course {
 		this.courseID = courseID;
 	}
 	
-	public void setTextBook(CourseTextbook book) {
+	public void setTextBook(String book) {
 		
 		this.textbook = book;
 		
 	}
 	
-public CourseTextbook getTextBook() {
+public String getTextBook() {
 		
 		return this.textbook;
 		

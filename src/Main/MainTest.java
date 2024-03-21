@@ -1,8 +1,13 @@
 package Main;
+import java.util.ArrayList;
+
 import Courses.Course;
 import Items.Book;
+import Items.CDs;
 import Items.CourseTextbook;
+import Items.Item;
 import Items.OnlineBook;
+import Items.PhyscialItem;
 import LibraryManagementSystem.LibraryManagementSystem;
 import Payment.DiscountedPaymentDecorator;
 import Payment.Payable;
@@ -39,17 +44,17 @@ public static void main(String[] args) throws Exception {
 	
 	 Student user = new Student("bob", "psw");
 	 Course c1 = new Course("Maths",2);
-	 CourseTextbook b1 = new CourseTextbook(5, "Calc2", "Maths");
+	 CourseTextbook b1 = new CourseTextbook(5, "Calc2", "Maths", "maths");
 	 
 	 LibraryManagementSystem system = LibraryManagementSystem.getInstance();
 	 
-	 CourseTextbook b2 = new CourseTextbook(5, "Calc3", "Maths2");
+	 CourseTextbook b2 = new CourseTextbook(5, "Calc3", "Maths2", "maths");
 	 Course c2 = new Course("Maths2",2);
 	 
-	 CourseTextbook b3 = new CourseTextbook(5, "Calc1", "Maths1");
+	 CourseTextbook b3 = new CourseTextbook(5, "Calc1", "Maths1", "maths");
 	 Course c3 = new Course("Maths1",2);
 	 
-	 OnlineBook b4 = new OnlineBook(1, "chemistry");
+	 OnlineBook b4 = new OnlineBook(1, "chemistry", "chemistry");
 	 
 	 Course c4 = new Course("biology",2);
 	 
@@ -96,7 +101,16 @@ public static void main(String[] args) throws Exception {
                }
             
            
-           Book b6 = new Book(7, "library", true, 20, "March 20", true, "new book");
+           Book b6 = new Book(7, "library", true, 20, "2024-03-10", true, "new book", "generic");
+           
+           OnlineBook b10 = new OnlineBook(5,"3311 Book" ,"course book");
+           OnlineBook b11 = new OnlineBook(5,"3101 Book","course book");
+           OnlineBook b12 = new OnlineBook(5,"1090 Book","course book");
+           
+           PhyscialItem book = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book","course book");
+           PhyscialItem cd = new CDs(4, "Toronto", true, 3, "12 Jan", true, "Music CD", "cd");
+           PhyscialItem cd2 = new CDs(4, "Toronto", true, 3, "12 Jan", true, "Movie CD", "cd");
+           PhyscialItem cd3 = new CDs(4, "Toronto", true, 3, "12 Jan", true, "Film CD", "cd");
            
            
 
@@ -115,21 +129,116 @@ public static void main(String[] args) throws Exception {
           team.enableItem(user, b6);
           payment2.makePayment(user, b6);
           user.addBooks(b6);
-//           
+          
+          
+          
+//          user.addRequestBook(b10);
+//          ManagementTeam team2 = ManagementTeam.getInstance("email", "psw");
+//          Payable payment3 = new Payment();
+//          Payable payment4 = new DiscountedPaymentDecorator(payment3); // Applying discount
+//          
+//          team2.verifyClient(user, true);
+//          team2.enableItem(user, b10);
+//          payment4.makePayment(user, b10);
+//          user.addBooks(b10);
+          
+          
+          
+          
+                
            user.logout();
            user.login("bob", "psw");
 	
           System.out.println(system.showDueDates(user));
           System.out.println(system.getLoggedInUsers());
           System.out.println(system.getOnlineBooks());
-	}
+          
+      for (int i =0; i<system.getCourse().size(); i++) {
+        	  
+        	  System.out.print(system.getCourse().get(i).getCourseName()+ ",");
+        	
+          
+      }
+      
+      System.out.println("\n");
+       
+          Course c5 = new Course("bio", 11);
+          c5.setTextBook("bio book");
+          user.requestNewBook("bio book", "biology");
+          for (int i =0; i<system.getOnlineBooks().size(); i++) {
+        	  
+        	  System.out.print(system.getOnlineBooks().get(i).getName()+ ",");
+        	  
+          }
+          
+          System.out.println("\n");
+          
+          
+          user.requestNewBook("chem book", "chemistry");
+          
+          user.returnBook(b6);
+          
 
+         user.searchItem("3311 Book");
+         user.searchItem("1090 Book");
+         user.searchItem("System Design book");
+         user.searchItem("Music CD");
+         
+         
+         
+         
+          
+      for (int i =0; i<system.getOnlineBooks().size(); i++) {
+        	  
+        	  System.out.print(system.getOnlineBooks().get(i).getName()+ ",");
+        	  
+          }
+          
+          System.out.println("\n");
+          
 
-   
-     
-
-
-   
+          
+          System.out.println("\n");
+          
+          
+          user.addRequestBook(cd3);
+          ManagementTeam team3 = ManagementTeam.getInstance("email", "psw");
+          Payable payment5 = new Payment();
+          Payable payment6 = new DiscountedPaymentDecorator(payment5); // Applying discount
+          
+          team3.verifyClient(user, true);
+          team3.enableItem(user, cd3);
+          payment6.makePayment(user,cd3);
+          user.addBooks(cd3);
+          
+          for (int i =0; i<user.getBooks().size(); i++) {
+        	  
+        	  System.out.print(user.getBooks().get(i).getName()+ ",");
+        	  
+          }
+          
+          System.out.println("\n");
+          
+          ArrayList<Item> test = user.getreccomendations();
+          
+         for (int i =0; i<test.size(); i++) {
+        	  
+        	  System.out.print(test.get(i).getName()+ ",");
+        	  
+          }
+          
+         System.out.println("\n");
+//          
+//      for (int i =0; i<system.getPhysicalItem().size(); i++) {
+//        	  
+//        	  System.out.print(system.getPhysicalItem().get(i).getName()+ ",");
+//        	  
+//          }
+//          
+//          System.out.println("\n");
+        
+         
+}
 
 }
 
