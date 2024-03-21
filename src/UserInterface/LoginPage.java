@@ -1,65 +1,51 @@
 package UserInterface;
-import Users.User;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
-public class LoginPage extends JFrame implements ActionListener {
+public class LoginPage extends JPanel {
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
-    private JLabel emailLabel, passwordLabel;
-    private User currentUser; // Reference to the current user object
+    private ActionListener actionListener;
 
-    public LoginPage() {
-        setTitle("Library Management System - Login");
-        setSize(300, 200);
-        setLayout(null);
+    public LoginPage(ActionListener listener) {
+        setLayout(new GridLayout(4, 1));
+        actionListener = listener;
 
-        emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(30, 30, 80, 25);
-        add(emailLabel);
+        JLabel titleLabel = new JLabel("Login Page", SwingConstants.CENTER);
+        add(titleLabel);
 
-        emailField = new JTextField();
-        emailField.setBounds(100, 30, 160, 25);
-        add(emailField);
+        JPanel emailPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel emailLabel = new JLabel("Email:");
+        emailPanel.add(emailLabel);
+        emailField = new JTextField(20);
+        emailPanel.add(emailField);
+        add(emailPanel);
 
-        passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(30, 65, 80, 25);
-        add(passwordLabel);
-
-        passwordField = new JPasswordField();
-        passwordField.setBounds(100, 65, 160, 25);
-        add(passwordField);
+        JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordPanel.add(passwordLabel);
+        passwordField = new JPasswordField(20);
+        passwordPanel.add(passwordField);
+        add(passwordPanel);
 
         loginButton = new JButton("Login");
-        loginButton.setBounds(100, 100, 80, 25);
-        loginButton.addActionListener(this);
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Notify ActionListener about successful login with email and password
+                actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Login Successful"));
+            }
+        });
         add(loginButton);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
-    // Method to handle button click event
-    public void actionPerformed(ActionEvent e) {
-        String email = emailField.getText();
-        String password = new String(passwordField.getPassword());
-
-        try {
-            currentUser = new User(email, password); // Creating user object
-            System.out.println(currentUser);
-            currentUser.login(email, password); // Attempting login
-            JOptionPane.showMessageDialog(this, "Login successful!");
-            // Here you can proceed with what you want to do after successful login
-            // For example, open the main application window
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Login failed: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    public String getEmail() {
+        return emailField.getText();
     }
 
-    public static void main(String[] args) {
-        new LoginPage();
+    public String getPassword() {
+        return new String(passwordField.getPassword());
     }
 }
-
