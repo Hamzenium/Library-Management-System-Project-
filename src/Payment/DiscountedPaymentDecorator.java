@@ -5,19 +5,31 @@ import Users.User;
 
 public class DiscountedPaymentDecorator extends PaymentDecorator {
 
-	double discount;
     public DiscountedPaymentDecorator(Payable payment) {
         
     	super(payment);
-    	this.discount = 0.8;
     }
 
-    @Override
-    public void makePayment(User user, Item item) throws Exception {
-        Double result = user.getDiscount(item) * 0.8; // Applying 20% discount
-        user.applyDiscount(item, result);
+	@Override
+	public double cost() {
+		// TODO Auto-generated method stub
+		return this.payment.cost() * 0.8;
+	}
+	
+	@Override
+	public void makePayment(User user, Item item) {
+		try {
+		Double result = user.getDiscount(item) * this.cost();
+		user.applyDiscount(item, result);
         user.itemPayment(item);
+        } catch (Exception e) {
+        e.printStackTrace();
     }
+		
+	}
+	
+	
+
 
 
 }

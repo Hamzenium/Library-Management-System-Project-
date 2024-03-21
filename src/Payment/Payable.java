@@ -2,8 +2,12 @@ package Payment;
 import Items.Item;
 import Users.User;
 
-public interface Payable {
+abstract class Payable {
 	
-	void makePayment(User user, Item item) throws Exception;
+	public abstract double cost();
+	public void makePayment(User user, Item item) {
+		
+	}
 
 }
+

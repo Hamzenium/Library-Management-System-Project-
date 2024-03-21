@@ -1,18 +1,19 @@
 package Main;
 import Courses.Course;
+
 import Items.Book;
 import Items.CourseTextbook;
 import Items.OnlineBook;
 import LibraryManagementSystem.LibraryManagementSystem;
 import Payment.DiscountedPaymentDecorator;
-import Payment.Payable;
 import Payment.Payment;
+import Payment.PenaltyPaymentDecorator;
+import Payment.PenaltyPaymentDecorator;
 import Users.Faculty;
 import Users.ManagementTeam;
 import Users.Student;
 import Users.User;
 import Users.Visitors;
-
 public class MainTest {
 
 public static void main(String[] args) throws Exception {
@@ -108,17 +109,21 @@ public static void main(String[] args) throws Exception {
            // then the user can add the item which being the book to their book list
           user.addRequestBook(b6);
           ManagementTeam team = ManagementTeam.getInstance("email", "psw");
-          Payable payment = new Payment();
-          Payable payment2 = new DiscountedPaymentDecorator(payment); // Applying discount
-          
+           Payment payment = new Payment();
+           DiscountedPaymentDecorator payment1 = new DiscountedPaymentDecorator(payment); // Applying discount
+           DiscountedPaymentDecorator payment2 = new DiscountedPaymentDecorator(payment1); // Applying discount
+           System.out.println("\n");
+           System.out.println(payment.cost());
+           System.out.println(payment2.cost());
           team.verifyClient(user, true);
           team.enableItem(user, b6);
           payment2.makePayment(user, b6);
-          user.addBooks(b6);
-//           
+          
+          
+          
+        System.out.println(user.getBooks());
            user.logout();
            user.login("bob", "psw");
-	
           System.out.println(system.showDueDates(user));
           System.out.println(system.getLoggedInUsers());
           System.out.println(system.getOnlineBooks());
@@ -128,8 +133,6 @@ public static void main(String[] args) throws Exception {
    
      
 
-
-   
 
 }
 
