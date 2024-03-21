@@ -1,26 +1,31 @@
 package Users;
 
 import LibraryManagementSystem.LibraryManagementSystem;
+import Newsletters.Newsletter;
+import Newsletters.Observer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import Items.Item;
 
-public class User {
+public class User implements Observer{
 	
 	
 	private String psw;
 	private String email;
 	private int penalty;
-	private ArrayList<Item> books;
+	public ArrayList<Item> books;
 	private Boolean canBorrow;
 	private Boolean verify;
 	protected HashMap<Item,Boolean> requestBook;
 	private HashMap<Item,Boolean> payment;
 	private HashMap<Item,Double> discount;
+	private HashSet<Newsletter> newsletterList;
+	private HashSet<Item> notifications;
 
-	
 	public User(String email, String psw) {
 		this.books = new ArrayList<Item>();
 		this.psw = psw ;
@@ -31,7 +36,10 @@ public class User {
 		this.requestBook = new HashMap<Item,Boolean>();
 		this.payment = new HashMap<Item,Boolean>();
 		this.discount = new HashMap<Item,Double>();
+		this.newsletterList = new HashSet<Newsletter>();
+		this.notifications =  new HashSet<Item>();
 	}
+
 	
 	public void subscribe() {
 		
@@ -179,7 +187,7 @@ public class User {
 			if(this.getVerify() && this.canBorrow) {
 				this.payment.put(item, true);
 				this.requestBook.put(item, true);
-				this.addBooks(item);
+				this.books.add(item);
 				return "Your Payment has been successfull and the Item has been added "+this.getDiscount(item);
 			}
 			else {
@@ -236,6 +244,33 @@ public class User {
 				return "Priority for requested book is low";
 				
 			}
+	   public void update(String newsletterName) {
+	        System.out.println("Received the latest newsletter: " + newsletterName);
+	    }
+
+
+	    public void subscribe(Newsletter newsletter) {
+	        newsletter.registerObserver(this);
+	        newsletterList.add(newsletter);
+	        System.out.println("Subscribed to newsletter: " + newsletter.getName());
+	    }
+
+	    public void cancel(Newsletter newsletter) {
+	        newsletter.unregisterObserver(this);
+	        newsletterList.remove(newsletter);
+	        System.out.println("Unsubscribed from newsletter: " + newsletter.getName());
+	    }
+
+		public HashSet<Item> getNotifications() {
+			return notifications;
+		}
+		public void clearNotifications() {
+			notifications.clear();;
+		}
+
+		public void setNotifications(Item notifications) {
+			this.notifications.add(notifications);
+		}
 		
 	
 }

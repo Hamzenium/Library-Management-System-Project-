@@ -1,9 +1,6 @@
-package UserInterface;
+ package UserInterface;
 
 import javax.swing.*;
-
-import Items.CourseTextbook;
-
 import java.awt.*;
 import java.awt.event.*;
 import Users.User;
@@ -49,11 +46,7 @@ public class LibraryManagementSystem extends JFrame implements ActionListener {
         // Create a new user object with the provided email and password
         currentUser = new User(email, password);
         System.out.println(currentUser);
-        CourseTextbook b2 = new CourseTextbook(5, "Calc3", "Maths2");
-        CourseTextbook b3 = new CourseTextbook(5, "Calc1", "Maths1");
-        currentUser.addRequestBook(b2);
-        currentUser.addRequestBook(b3);
-        // Update the DashboardPage with the ;user information
+        // Update the DashboardPage with the user information
         dashboardPage.setUser(currentUser);
         // Switch to the DashboardPage
         cardLayout.show(cardPanel, "Dashboard");
@@ -76,5 +69,3 @@ public class LibraryManagementSystem extends JFrame implements ActionListener {
         new LibraryManagementSystem();
     }
 }
-
-

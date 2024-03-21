@@ -5,17 +5,29 @@ import Users.User;
 
 public class PenaltyPaymentDecorator extends PaymentDecorator {
 	
-	double penalty ;
-    public PenaltyPaymentDecorator(Payable payment) {
-        super(payment);
-        this.penalty = 1.2;
-    }
+	  public PenaltyPaymentDecorator(Payable payment) {
+	    	super(payment);
+	    }
 
-    @Override
-    public void makePayment(User user, Item item) throws Exception {
-        Double result = user.getDiscount(item) * 1.2; // Applying 20% penalty
-        user.applyDiscount(item, result);
-        user.itemPayment(item);
-    }
+		@Override
+		public double cost() {
+			// TODO Auto-generated method stub
+			return this.payment.cost() * 1.2;
+		}
+		
+		@Override
+		public void makePayment(User user, Item item) {
+			try {
+			Double result = user.getDiscount(item) * this.cost();
+			user.applyDiscount(item, result);
+	        user.itemPayment(item);
+	        } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+			
+		}
+		
+
+
+
 }
-

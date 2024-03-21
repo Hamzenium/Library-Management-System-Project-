@@ -41,7 +41,11 @@ public class LoginPage extends JPanel {
         add(loginButton);
     }
 
-    public String getEmail() {
+    public LoginPage(LibraryManagementSystem listener) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getEmail() {
         return emailField.getText();
     }
 
