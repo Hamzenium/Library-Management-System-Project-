@@ -5,6 +5,7 @@ import Items.Book;
 import Items.CourseTextbook;
 import Items.OnlineBook;
 import LibraryManagementSystem.LibraryManagementSystem;
+import Newsletters.Newsletter;
 import Payment.DiscountedPaymentDecorator;
 import Payment.Payment;
 import Payment.PenaltyPaymentDecorator;
@@ -16,6 +17,17 @@ import Users.User;
 import Users.Visitors;
 public class MainTest {
 
+	
+	public static PenaltyPaymentDecorator wrapPaymentWithPenalty(int penaltyCount) {
+	    Payment payment = new Payment();
+	    PenaltyPaymentDecorator wrappedPayment = new PenaltyPaymentDecorator(payment);
+	    
+	    for (int i = 1; i < penaltyCount; i++) {
+	        wrappedPayment = new PenaltyPaymentDecorator(wrappedPayment);
+	    }
+	    
+	    return wrappedPayment;
+	}
 public static void main(String[] args) throws Exception {
 //	    
 //	    Visitors user1 = new Visitors("Hamza13", "hamza.sohail29@gmail.com");
@@ -107,30 +119,45 @@ public static void main(String[] args) throws Exception {
            //the the managemnt team needs to enable the item to be borrowed by the person
            // the user needs to then add pay for the item 
            // then the user can add the item which being the book to their book list
+
           user.addRequestBook(b6);
           ManagementTeam team = ManagementTeam.getInstance("email", "psw");
-           Payment payment = new Payment();
-           DiscountedPaymentDecorator payment1 = new DiscountedPaymentDecorator(payment); // Applying discount
-           DiscountedPaymentDecorator payment2 = new DiscountedPaymentDecorator(payment1); // Applying discount
+
+          PenaltyPaymentDecorator payment = wrapPaymentWithPenalty(2);
+          
+          System.out.println("\n"+payment.cost());
+
            System.out.println("\n");
-           System.out.println(payment.cost());
-           System.out.println(payment2.cost());
           team.verifyClient(user, true);
           team.enableItem(user, b6);
-          payment2.makePayment(user, b6);
+//          payment.makePayment(user, b6);
           
-          
-          
-        System.out.println(user.getBooks());
-           user.logout();
-           user.login("bob", "psw");
-          System.out.println(system.showDueDates(user));
-          System.out.println(system.getLoggedInUsers());
-          System.out.println(system.getOnlineBooks());
-	}
+       // Apply discount twice
+       // Apply discount twice
+  
+          // Now 'payment' is wrapped with DiscountedPaymentDecorator twice
 
 
-   
+          // Now 'payment' is wrapped with DiscountedPaymentDecorator twice
+
+//          
+//          
+//          
+//        System.out.println(user.getBooks());
+//           user.logout();
+//           user.login("bob", "psw");
+//          System.out.println(system.showDueDates(user));
+//          System.out.println(system.getLoggedInUsers());
+//          System.out.println(system.getOnlineBooks());
+          
+          Newsletter geonews = new Newsletter("CricInfo Newsletter");
+          
+          user.subscribe(geonews);
+          String word ="heelo !";
+          geonews.update(word);
+
+
+}
      
 
 

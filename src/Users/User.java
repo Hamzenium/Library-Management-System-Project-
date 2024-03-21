@@ -2,7 +2,7 @@ package Users;
 
 import LibraryManagementSystem.LibraryManagementSystem;
 import Newsletters.Newsletter;
-
+import Newsletters.Observer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 
 import Items.Item;
 
-public class User {
+public class User implements Observer{
 	
 	
 	private String psw;
@@ -242,6 +242,22 @@ public class User {
 				return "Priority for requested book is low";
 				
 			}
+	   public void update(String newsletterName) {
+	        System.out.println("Received the latest newsletter: " + newsletterName);
+	    }
+
+
+	    public void subscribe(Newsletter newsletter) {
+	        newsletter.registerObserver(this);
+	        newsletterList.add(newsletter);
+	        System.out.println("Subscribed to newsletter: " + newsletter.getName());
+	    }
+
+	    public void cancel(Newsletter newsletter) {
+	        newsletter.unregisterObserver(this);
+	        newsletterList.remove(newsletter);
+	        System.out.println("Unsubscribed from newsletter: " + newsletter.getName());
+	    }
 		
 	
 }
