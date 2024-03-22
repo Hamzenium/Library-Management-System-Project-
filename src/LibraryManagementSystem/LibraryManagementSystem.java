@@ -34,7 +34,9 @@ public class LibraryManagementSystem {
 	public ArrayList<User> getLoggedInUsers() {
 		return loggedInUsers;
 	}
-	
+	public void setLoggedInUsers(User user) {
+		this.loggedInUsers.add(user);
+	}
 	public ArrayList<OnlineBook> getOnlineBooks() {
 		return onlineBooks;
 	}
@@ -45,6 +47,15 @@ public class LibraryManagementSystem {
 
 	public void addCourse(Course course) {
 		this.course.add(course);
+	}
+
+	public Course searchCourse(String search) {
+		for(Course course: this.course) {
+			if(course.getCourseName() == search) {
+				return course;
+			}
+		}
+		return null;
 	}
 
 	public  HashMap<Item, String> showDueDates(User user){
