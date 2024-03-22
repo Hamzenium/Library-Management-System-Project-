@@ -30,12 +30,13 @@ public class MainTest {
 	}
 public static void main(String[] args) throws Exception {
 //	    
-//	    Visitors user1 = new Visitors("Hamza13", "hamza.sohail29@gmail.com");
-//	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
-//	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
-//	    user1.addRequestBook(javaBook);
-//	    user1.addRequestBook(systemdesginBook);
-//	    
+	    Visitors user1 = new Visitors("Hamza13", "hamza.sohail29@gmail.com");
+	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
+	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
+	    user1.addRequestBook(javaBook);
+	    user1.addRequestBook(systemdesginBook);
+	    user1.getBooks();
+	    
 //	    ManagementTeam team = new ManagementTeam("Momina234", "momina Mustehsan");
 //	    Payment payment = new Payment();
 //

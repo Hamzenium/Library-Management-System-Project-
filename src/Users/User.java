@@ -81,7 +81,8 @@ public class User implements Observer{
 	public void regsiter() {
 		
 	}
-	public void searchBook() {
+	public void searchBook(String search) {
+		
 		
 	}
 	public void requestBook() {
@@ -166,6 +167,11 @@ public class User implements Observer{
 		return result;
 
 
+	}
+	
+public HashMap<Item, Boolean> getreqBookList() {
+		
+		return this.requestBook;
 	}
 	public String getBookList() {
 		
