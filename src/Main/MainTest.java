@@ -36,8 +36,8 @@ public class MainTest {
 public static void main(String[] args) throws Exception {
 //	    
 	    Visitors user1 = new Visitors("Hamza13", "hamza.sohail29@gmail.com");
-	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
-	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
+	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book","Programming");
+	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book", "Programming");
 	    user1.addRequestBook(javaBook);
 	    user1.addRequestBook(systemdesginBook);
 	    user1.getBooks();
@@ -145,13 +145,13 @@ public static void main(String[] args) throws Exception {
            System.out.println("\n");
           team.verifyClient(user, true);
           team.enableItem(user, b6);
-//          payment.makePayment(user, b6);
+         payment.makePayment(user, b6);
           
        // Apply discount twice
        // Apply discount twice
   
           // Now 'payment' is wrapped with DiscountedPaymentDecorator twice
-          payment2.makePayment(user, b6);
+
           user.addBooks(b6);
           
           

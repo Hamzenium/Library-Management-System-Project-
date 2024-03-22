@@ -90,7 +90,6 @@ public class LibraryManagementSystem {
 		
 		return dueDates;
 		
-		
 	}
 	
 	public void makeVirtualCopiesAvailable(Student user) {

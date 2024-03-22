@@ -27,9 +27,5 @@ public class DiscountedPaymentDecorator extends PaymentDecorator {
     }
 		
 	}
-	
-	
-
-
 
 }
