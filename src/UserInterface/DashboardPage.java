@@ -160,29 +160,29 @@ public class DashboardPage extends JFrame implements ActionListener {
         LocalDate currentDate = LocalDate.now();
         LocalDate dateAfter7Days = currentDate.plusDays(7);
         // Add some books to user1
-        Book javaBook = new Book(2232, "Toronto", true, 3, "20 Jan", true, "Java OOP book","programming");
-        Book systemdesignBook = new Book(4343, "Toronto", true, 3, "12 Jan", true, "System Design book","programming");
-        Book mechanics = new Book(2343, "Toronto", true, 3, "23 Jan", true, "Polymer Mechanical Properties","mechanics");
-        Book mechanics2 = new Book(242, "Toronto", true, 3, "23 Jan", true, "Chemical Properties of Acids","chemsitry");
-        Book systemDesignBook = new Book(4343, "New York", true, 4, "12 Jan", true, "System Design book","programming");
-        Book mechanics1 = new Book(2534, "London", true, 5, "23 Jan", true, "Polymer Mechanical Properties 1","mechanics");
-        Book mechanics3 = new Book(2636, "Berlin", true, 1, "28 Jan", true, "Polymer Mechanical Properties 3","mechanics");
-        Book chemistry1 = new Book(2737, "Sydney", true, 6, "30 Jan", true, "Chemical Properties of Acids 1","chemistry");
-        Book chemistry2 = new Book(2838, "Tokyo", true, 3, "02 Feb", true, "Chemical Properties of Acids 2","chemistry");
-        Book chemistry3 = new Book(29439, "Beijing", true, 4, "05 Feb", true, "Chemical Properties of Acids 3","chemistry");
-        Book physics1 = new Book(3040, "Moscow", true, 2, "08 Feb", true, "Physics for Beginners 1","physics");
-        Book physics2 = new Book(3141, "Rome", true, 1, "11 Feb", true, "Physics for Beginners 2","physics");
-        Book physics3 = new Book(3242, "Athens", true, 5, "14 Feb", true, "Physics for Beginners 3","physics");
-        Book history1 = new Book(3343, "Cairo", true, 3, "17 Feb", true, "World History 1","history");
-        Book history2 = new Book(3444, "Dubai", true, 4, "20 Feb", true, "World History 2","history");
-        Book history3 = new Book(3545, "Mumbai", true, 2, "23 Feb", true, "World History 3","history");
-        Book fiction1 = new Book(3646, "Istanbul", true, 1, "26 Feb", true, "Fiction Novels 1","novels");
-        Book fiction2 = new Book(3747, "Bangkok", true, 6, "01 Mar", true, "Fiction Novels 2","novels");
-        Book fiction3 = new Book(3848, "Seoul", true, 3, "04 Mar", true, "Fiction Novels 3","novels");
-        Book arts1 = new Book(3949, "Kuala Lumpur", true, 4, "07 Mar", true, "Art History 1","history");
-        Book arts2 = new Book(4050, "Singapore", true, 2, "10 Mar", true, "Art History 2","history");
-        Book arts3 = new Book(4251, "Manila", true, 5, "13 Mar", true, "Art History 3","history");
-        
+        Book javaBook = new Book(2232, "Toronto", true, 3, "20 Jan", true, "Effective Java","programming");
+        Book systemdesignBook = new Book(4393, "Toronto", true, 3, "12 Jan", true, "Designing Data-Intensive Applications","programming");
+        Book mechanics = new Book(2343, "Toronto", true, 3, "23 Jan", true, "Engineering Mechanics: Dynamics","mechanics");
+        Book mechanics2 = new Book(242, "Toronto", true, 3, "23 Jan", true, "Fundamentals of Fluid Mechanics","mechanics");
+        Book systemDesignBook = new Book(4343, "New York", true, 4, "12 Jan", true, "Domain-Driven Design","programming");
+        Book mechanics1 = new Book(2534, "London", true, 5, "23 Jan", true, "Introduction to Solid Mechanics","mechanics");
+        Book mechanics3 = new Book(2636, "Berlin", true, 1, "28 Jan", true, "Strength of Materials","mechanics");
+        Book chemistry1 = new Book(2737, "Sydney", true, 6, "30 Jan", true, "Organic Chemistry: Structure and Function","chemistry");
+        Book chemistry2 = new Book(2838, "Tokyo", true, 3, "02 Feb", true, "Inorganic Chemistry","chemistry");
+        Book chemistry3 = new Book(29439, "Beijing", true, 4, "05 Feb", true, "Biochemistry","chemistry");
+        Book physics1 = new Book(3040, "Moscow", true, 2, "08 Feb", true, "Quantum Physics for Beginners","physics");
+        Book physics2 = new Book(3141, "Rome", true, 1, "11 Feb", true, "Classical Mechanics","physics");
+        Book physics3 = new Book(3242, "Athens", true, 5, "14 Feb", true, "Astrophysics for People in a Hurry","physics");
+        Book history1 = new Book(3343, "Cairo", true, 3, "17 Feb", true, "A Brief History of Time","history");
+        Book history2 = new Book(3444, "Dubai", true, 4, "20 Feb", true, "The History of the Ancient World","history");
+        Book history3 = new Book(3545, "Mumbai", true, 2, "23 Feb", true, "Guns, Germs, and Steel","history");
+        Book fiction1 = new Book(3646, "Istanbul", true, 1, "26 Feb", true, "The Great Gatsby","novels");
+        Book fiction2 = new Book(3747, "Bangkok", true, 6, "01 Mar", true, "Pride and Prejudice","novels");
+        Book fiction3 = new Book(3848, "Seoul", true, 3, "04 Mar", true, "To Kill a Mockingbird","novels");
+        Book arts1 = new Book(3949, "Kuala Lumpur", true, 4, "07 Mar", true, "The Art of War","history");
+        Book arts2 = new Book(4050, "Singapore", true, 2, "10 Mar", true, "Leonardo da Vinci","history");
+        Book arts3 = new Book(4251, "Manila", true, 5, "13 Mar", true, "The Picture of Dorian Gray","history");
+
         bookList.add(javaBook);
         bookList.add(systemdesignBook);
         bookList.add(mechanics);
@@ -371,6 +371,8 @@ public class DashboardPage extends JFrame implements ActionListener {
 
         searchBooksFrame.setVisible(true);
     }
+    boolean purchaseSuccessful = true;
+    
     private void purchaseBook() {
         JFrame purchaseBookFrame = new JFrame("Purchase Book");
         
@@ -435,53 +437,47 @@ public class DashboardPage extends JFrame implements ActionListener {
             purchaseBookPanel.repaint();
         });
 
-        JButton purchaseButton = new JButton("Purchase");
-        purchaseButton.addActionListener(e -> {
-            boolean purchaseSuccessful = true; // Set initial purchase status to true
-            
-            // Iterate through the book panels to find selected books and process purchase
-            for (Component component : purchaseBookPanel.getComponents()) {
-                if (component instanceof JPanel) {
-                    JPanel bookPanel = (JPanel) component;
-                    Component[] components = bookPanel.getComponents();
-                    for (Component innerComponent : components) {
-                        if (innerComponent instanceof JCheckBox) {
-                            JCheckBox checkBox = (JCheckBox) innerComponent;
-                            if (checkBox.isSelected()) {
-                                // Process purchase for the selected book
-                                Item selectedBook = findBookByName(bookPanel.getName()); // Implement this method
-                                Payment payment = new Payment();
-                                if (user1.getRequestBook().get(bookPointer) == false) {
-                                    // If payment fails, set purchaseSuccessful to false
-                                    purchaseSuccessful = false;
-                                    break; // Exit the inner loop if payment fails for any book
-                                }
-                                else {
-                                    payment.makePayment(user1, bookPointer);
-                                }
-                               
-   
-                            }
-                        }
-                    }
-                }
-            }
 
-            // Display appropriate message based on the purchase status
-            if (purchaseSuccessful) {
-                SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(purchaseBookFrame, "Selected book has been purchased successfully.");
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(purchaseBookFrame, "Payment failed for one or more books. Book request is still pending.");
-                });
-            }
+       
+        JButton creditCardButton = new JButton("Credit Card Payment");
+        creditCardButton.addActionListener(e -> {
+        	Payment payment = new Payment();
+        	 payment.makePayment(user1, bookPointer);
+        		if (user1.getRequestBook().get(bookPointer) == false) {
+                    // If payment fails, set purchaseSuccessful to false
+               	
+               purchaseSuccessful = false;
+                }
+                if (purchaseSuccessful) {
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(purchaseBookFrame, "Selected book has been purchased successfully.");
+                    });
+                } else {
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(purchaseBookFrame, "Payment failed for one or more books. Book request is still pending.");
+                    });
+                }
         });
 
-
-
-
+        JButton debitCardButton = new JButton("Debit Card Payment");
+        debitCardButton.addActionListener(e -> {
+        	Payment payment = new Payment();
+       	 payment.makePayment(user1, bookPointer);
+     	if (user1.getRequestBook().get(bookPointer) == false) {
+            // If payment fails, set purchaseSuccessful to false
+       	
+       purchaseSuccessful = false;
+        }
+        if (purchaseSuccessful) {
+            SwingUtilities.invokeLater(() -> {
+                JOptionPane.showMessageDialog(purchaseBookFrame, "Selected book has been purchased successfully.");
+            });
+        } else {
+            SwingUtilities.invokeLater(() -> {
+                JOptionPane.showMessageDialog(purchaseBookFrame, "Payment failed for one or more books. Book request is still pending.");
+            });
+        }
+        });
 
         // Add components to the search panel
         searchPanel.add(searchField);
@@ -491,20 +487,18 @@ public class DashboardPage extends JFrame implements ActionListener {
         purchaseBookFrame.getContentPane().setLayout(new BorderLayout());
         purchaseBookFrame.getContentPane().add(searchPanel, BorderLayout.NORTH);
         purchaseBookFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-        purchaseBookFrame.getContentPane().add(purchaseButton, BorderLayout.SOUTH);
+
+        // Add payment buttons next to each other
+        JPanel paymentButtonPanel = new JPanel();
+        paymentButtonPanel.add(creditCardButton);
+        paymentButtonPanel.add(debitCardButton);
+        purchaseBookFrame.getContentPane().add(paymentButtonPanel, BorderLayout.SOUTH);
 
         purchaseBookFrame.setVisible(true);
     }
 
-    // Helper method to find a book by its name
-    private Item findBookByName(String name) {
-        for (Item book : bookList) {
-            if (book.getName().equalsIgnoreCase(name)) {
-                return book;
-            }
-        }
-        return null; // Book not found
-    }
+    
+    
     private void displayRecommendations() {
         JFrame recommendationsFrame = new JFrame("Recommended Books");
 
