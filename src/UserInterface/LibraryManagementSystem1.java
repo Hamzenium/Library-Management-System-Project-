@@ -106,8 +106,8 @@ public class LibraryManagementSystem1 extends JFrame implements ActionListener {
 
             // Create sample users
             Student user1 = new Student("hamza.sohail29@gmail.com", "hamza123");
-    	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
-    	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
+    	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book","rogramming");
+    	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book","programming");
             // Set logged-in users
             system.setLoggedInUsers(user1);
             user1.addRequestBook(javaBook);

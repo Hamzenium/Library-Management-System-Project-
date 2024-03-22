@@ -8,11 +8,14 @@ import LibraryManagementSystem.LibraryManagementSystem;
 import Payment.Payment;
 import Users.ManagementTeam;
 import Users.Student;
+import Users.User;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class DashboardPage extends JFrame implements ActionListener {
@@ -106,7 +109,6 @@ public class DashboardPage extends JFrame implements ActionListener {
                 displayBooks();
                 break;
             case "View Deadlines":
-                // Handle view deadlines action
                 break;
             case "Request a Book":
                 // Handle request book action
@@ -387,8 +389,5 @@ public class DashboardPage extends JFrame implements ActionListener {
 
         searchBooksFrame.setVisible(true);
     }
-
-
-
 }
 
