@@ -32,7 +32,7 @@ public class User implements Observer{
 	protected HashMap<Item,Boolean> requestBook;
 	private HashMap<Item,Boolean> payment;
 	private HashMap<Item,Double> discount;
-	private HashSet<Newsletter> newsletterList;
+	private Stack<String> newsletterList;
 	private Stack<Item> notifications;
 
 	public User(String email, String psw) {
@@ -45,7 +45,7 @@ public class User implements Observer{
 		this.requestBook = new HashMap<Item,Boolean>();
 		this.payment = new HashMap<Item,Boolean>();
 		this.discount = new HashMap<Item,Double>();
-		this.newsletterList = new HashSet<Newsletter>();
+		this.newsletterList = new Stack<String>();
 		this.notifications =  new Stack<Item>();
 	}
 
@@ -222,6 +222,10 @@ public HashMap<Item, Boolean> getreqBookList() {
 		return this.requestBook;
 
 	}
+	public Stack<String> getNewsletter() {
+		return this.newsletterList;
+
+	}
 	public void applyDiscount(Item item, Double value) {
 		this.discount.put(item, value);
 	}
@@ -268,24 +272,35 @@ public HashMap<Item, Boolean> getreqBookList() {
 				
 			}
 	   public void update(String newsletterName) {
-	        System.out.println("Received the latest newsletter: " + newsletterName);
+		   
+		   this.newsletterList.add(newsletterName);
+	       System.out.println("Received the latest newsletter: " + newsletterName);
 	    }
 
 
 	    public void subscribe(Newsletter newsletter) {
 	        newsletter.registerObserver(this);
-	        newsletterList.add(newsletter);
 	        System.out.println("Subscribed to newsletter: " + newsletter.getName());
 	    }
 
 	    public void cancel(Newsletter newsletter) {
 	        newsletter.unregisterObserver(this);
-	        newsletterList.remove(newsletter);
 	        System.out.println("Unsubscribed from newsletter: " + newsletter.getName());
 	    }
 
 		public Stack<Item> getNotifications() {
 			return notifications;
+		}
+		public ArrayList<String> viewNewsletter() {
+			
+			ArrayList<String> list = new ArrayList<String>();
+			for(String word: this.getNewsletter()) {
+				list.add(word);
+			}
+			return list;
+		}
+		public void clearNewsletter() {
+			this.newsletterList.clear();
 		}
 		public void clearNotifications() {
 			notifications.clear();;;

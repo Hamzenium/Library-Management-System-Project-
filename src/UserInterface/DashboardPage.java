@@ -5,6 +5,7 @@ import javax.swing.*;
 import Items.Book;
 import Items.Item;
 import LibraryManagementSystem.LibraryManagementSystem;
+import Newsletters.Newsletter;
 import Payment.Payment;
 import Users.ManagementTeam;
 import Users.Student;
@@ -20,12 +21,14 @@ public class DashboardPage extends JFrame implements ActionListener {
     private ArrayList<Item> bookList; // ArrayList to hold books
     public Item bookPointer;
     public Item bookPointer2;
+    public LibraryManagementSystem lms;
 
-    public DashboardPage(Student user, ArrayList<Item> bookList) {
+    public DashboardPage(Student user, ArrayList<Item> bookList,LibraryManagementSystem lms) {
         this.user1 = user;
         this.bookList = bookList; // Set the book list
         this.bookPointer = null;
         this.bookPointer2 = null;
+        this.lms =  lms;
         setTitle("Dashboard Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -88,7 +91,7 @@ public class DashboardPage extends JFrame implements ActionListener {
         JButton addBookButton = new JButton("Purchase Book");
         addBookButton.addActionListener(this);
         buttonPanel4.add(addBookButton);
-
+   
         // Add button panels to the background label
         background.add(buttonPanel1);
         background.add(buttonPanel2);
@@ -110,6 +113,7 @@ public class DashboardPage extends JFrame implements ActionListener {
                 displayBooks();
                 break;
             case "View Deadlines":
+            	viewDeadlines();
                 // Handle view deadlines action
                 break;
             case "Request a Book":
@@ -117,6 +121,7 @@ public class DashboardPage extends JFrame implements ActionListener {
                 // Handle request book action
                 break;
             case "Newsletter":
+            	viewNewsletter();
                 // Handle newsletter action
                 break;
             case "Recommended Books":
@@ -189,6 +194,8 @@ public class DashboardPage extends JFrame implements ActionListener {
         // Create sample users
     	
         ManagementTeam team = ManagementTeam.getInstance("email", "psw");
+        LibraryManagementSystem system = LibraryManagementSystem.getInstance();
+      	 
         ArrayList<Item> bookList = new ArrayList<Item>();
         Student user1 = new Student("hamza.sohail29@gmail.com", "hamza123");
         // Add some books to user1
@@ -239,6 +246,7 @@ public class DashboardPage extends JFrame implements ActionListener {
         bookList.add(arts3);
 
         team.searchBook(null);
+        Newsletter geonews = new Newsletter("CricTime Newsletter");
         
 
         user1.addRequestBook(systemdesignBook);
@@ -250,6 +258,15 @@ public class DashboardPage extends JFrame implements ActionListener {
         Payment payment = new Payment();
         payment.makePayment(user1, systemdesignBook);
         user1.getRequestBookList();
+        user1.subscribe(geonews);
+        geonews.update("The T20 World cup will be taking place this april in NewYork");
+        System.out.println(user1.viewNewsletter());
+        
+        user1.login("hamza.sohail29@gmail.com", "hamza123");
+        user1.login("hamza.sohail29@gmail.com", "hamza123");
+        System.out.println(system.showDueDatesIndividual(user1));
+      
+        
 
         // Create a JFrame to hold the WelcomePanel
         JFrame welcomeFrame = new JFrame("Welcome to York's Library Management System");
@@ -263,7 +280,7 @@ public class DashboardPage extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 // Open the DashboardPage when the login button is clicked
                 welcomeFrame.dispose(); // Close the WelcomeFrame
-                new DashboardPage(user1,bookList);
+                new DashboardPage(user1,bookList,system);
 
             }
         });
@@ -568,6 +585,7 @@ public class DashboardPage extends JFrame implements ActionListener {
         recommendationsFrame.add(scrollPane);
         recommendationsFrame.setLocationRelativeTo(null);
         recommendationsFrame.setVisible(true);
+        
     }
 
     private void requestBook() {
@@ -647,6 +665,7 @@ public class DashboardPage extends JFrame implements ActionListener {
                                 // Add the selected book to the user's request list
 //                                Item selectedBook = findBookById(Integer.parseInt(bookPanel.getName())); // Implement this method
                                 user1.addRequestBook(bookPointer2);
+                               
                             }
                         }
                     }
@@ -672,6 +691,81 @@ public class DashboardPage extends JFrame implements ActionListener {
     }
 
 
+    private void viewNewsletter() {
+        JFrame newsletterFrame = new JFrame("Newsletter");
+
+        // Calculate the size to be 60% of the screen size
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.getWidth() * 0.3);
+        int height = (int) (screenSize.getHeight() * 0.6);
+        newsletterFrame.setSize(width, height);
+
+        JPanel newsletterPanel = new JPanel();
+        newsletterPanel.setLayout(new BoxLayout(newsletterPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
+
+        ArrayList<String> newsletter = user1.viewNewsletter(); // Retrieve newsletter content directly from user
+
+        // Iterate through the newsletter items and display them
+        for (String item : newsletter) {
+            JPanel itemPanel = new JPanel();
+            itemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Add border
+            itemPanel.setBackground(Color.WHITE); // Set background color
+            itemPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align components to the left
+            itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
+
+            JLabel itemLabel = new JLabel(item);
+            itemLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            itemPanel.add(itemLabel);
+            itemPanel.add(Box.createVerticalStrut(5)); // Add vertical space
+
+            newsletterPanel.add(itemPanel);
+            newsletterPanel.add(Box.createVerticalStrut(10)); // Add vertical space between boxes
+        }
+
+        JScrollPane scrollPane = new JScrollPane(newsletterPanel); // Add scroll pane for vertical scrolling
+        newsletterFrame.add(scrollPane);
+        newsletterFrame.setLocationRelativeTo(null);
+        newsletterFrame.setVisible(true);
+    }
+
+    private void viewDeadlines() {
+        JFrame deadlinesFrame = new JFrame("Deadlines");
+
+        // Calculate the size to be 60% of the screen size
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.getWidth() * 0.3);
+        int height = (int) (screenSize.getHeight() * 0.6);
+        deadlinesFrame.setSize(width, height);
+
+        JPanel deadlinesPanel = new JPanel();
+        deadlinesPanel.setLayout(new BoxLayout(deadlinesPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
+
+        ArrayList<String> deadlines = this.lms.showDueDatesIndividual(user1); // Retrieve deadlines directly from the system for the user
+
+        // Iterate through the deadlines and display them
+        for (String deadline : deadlines) {
+            JPanel deadlinePanel = new JPanel();
+            deadlinePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Add border
+            deadlinePanel.setBackground(Color.WHITE); // Set background color
+            deadlinePanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align components to the left
+            deadlinePanel.setLayout(new BoxLayout(deadlinePanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
+
+            JLabel deadlineLabel = new JLabel(deadline);
+            deadlineLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            deadlinePanel.add(deadlineLabel);
+            deadlinePanel.add(Box.createVerticalStrut(5)); // Add vertical space
+
+            deadlinesPanel.add(deadlinePanel);
+            deadlinesPanel.add(Box.createVerticalStrut(10)); // Add vertical space between boxes
+        }
+
+        JScrollPane scrollPane = new JScrollPane(deadlinesPanel); // Add scroll pane for vertical scrolling
+        deadlinesFrame.add(scrollPane);
+        deadlinesFrame.setLocationRelativeTo(null);
+        deadlinesFrame.setVisible(true);
+    }
 
 
 }

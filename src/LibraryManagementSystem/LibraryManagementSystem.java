@@ -92,7 +92,23 @@ public class LibraryManagementSystem {
 		
 		
 	}
-	
+	public  ArrayList<String> showDueDatesIndividual(User user){
+		
+		ArrayList<String> list = new ArrayList<String>();
+		String output = "";
+			
+			for (int j = 0; j< user.getBooks().size(); j++) {
+				
+				output = user.getBooks().get(j).getName() +" : "+  user.getBooks().get(j).getDueDates();
+				list.add(output);
+				output = "";
+			}
+		
+		
+		return list;
+		
+		
+	}
 	public void makeVirtualCopiesAvailable(Student user) {
 	    for (int i = 0; i < user.getCoursesTaking().size(); i++) {
 	        for (int j = 0; j < instance.onlineBooks.size(); j++) {

@@ -166,6 +166,8 @@ public static void main(String[] args) throws Exception {
 //          payment4.makePayment(user, b10);
 //          user.addBooks(b10);
           
+          Newsletter geonews = new Newsletter("CricTime Newsletter");
+          
           
           
           
@@ -233,20 +235,47 @@ public static void main(String[] args) throws Exception {
 //          System.out.println(system.getLoggedInUsers());
 //          System.out.println(system.getOnlineBooks());
           
-          Newsletter geonews = new Newsletter("CricInfo Newsletter");
-          
+//          Newsletter geonews = new Newsletter("CricInfo Newsletter");
+//          
           user.subscribe(geonews);
           String word ="heelo !";
           geonews.update(word);
-
-
-}
-     
-
           
-        //   System.out.println("\n");
-          
-          
+          //   user.addRequestBook(cd3);
+          //   ManagementTeam team3 = ManagementTeam.getInstance("email", "psw");
+          //   Payable payment5 = new Payment();
+          //   Payable payment6 = new DiscountedPaymentDecorator(payment5); // Applying discount
+            
+          //   team3.verifyClient(user, true);
+          //   team3.enableItem(user, cd3);
+          //   payment6.makePayment(user,cd3);
+          //   user.addBooks(cd3);
+            
+          //   for (int i =0; i<user.getBooks().size(); i++) {
+          	  
+          // 	  System.out.print(user.getBooks().get(i).getName()+ ",");
+          	  
+          //   }
+            
+          //   System.out.println("\n");
+            
+          //   ArrayList<Item> test = user.getreccomendations();
+            
+          //  for (int i =0; i<test.size(); i++) {
+          	  
+          // 	  System.out.print(test.get(i).getName()+ ",");
+          	  
+          //   }
+            
+          //  System.out.println("\n");
+//            
+//        for (int i =0; i<system.getPhysicalItem().size(); i++) {
+//          	  
+//          	  System.out.print(system.getPhysicalItem().get(i).getName()+ ",");
+//          	  
+//            }
+//            
+//            System.out.println("\n");
         //   user.addRequestBook(cd3);
         //   ManagementTeam team3 = ManagementTeam.getInstance("email", "psw");
         //   Payable payment5 = new Payment();
@@ -282,6 +311,15 @@ public static void main(String[] args) throws Exception {
 //          }
 //          
 //          System.out.println("\n");
+
+
+}
+     
+
+          
+        //   System.out.println("\n");
+          
+
         
          
 }
