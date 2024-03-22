@@ -19,11 +19,13 @@ public class DashboardPage extends JFrame implements ActionListener {
     private Student user1;
     private ArrayList<Item> bookList; // ArrayList to hold books
     public Item bookPointer;
+    public Item bookPointer2;
 
     public DashboardPage(Student user, ArrayList<Item> bookList) {
         this.user1 = user;
         this.bookList = bookList; // Set the book list
         this.bookPointer = null;
+        this.bookPointer2 = null;
         setTitle("Dashboard Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -111,6 +113,7 @@ public class DashboardPage extends JFrame implements ActionListener {
                 // Handle view deadlines action
                 break;
             case "Request a Book":
+            	requestBook();
                 // Handle request book action
                 break;
             case "Newsletter":
@@ -490,7 +493,7 @@ public class DashboardPage extends JFrame implements ActionListener {
             // Display appropriate message based on the purchase status
             if (purchaseSuccessful) {
                 SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(purchaseBookFrame, "All selected books have been purchased successfully.");
+                    JOptionPane.showMessageDialog(purchaseBookFrame, "Selected book has been purchased successfully.");
                 });
             } else {
                 SwingUtilities.invokeLater(() -> {
@@ -565,6 +568,107 @@ public class DashboardPage extends JFrame implements ActionListener {
         recommendationsFrame.add(scrollPane);
         recommendationsFrame.setLocationRelativeTo(null);
         recommendationsFrame.setVisible(true);
+    }
+
+    private void requestBook() {
+        JFrame requestBookFrame = new JFrame("Request Book");
+
+        // Calculate the size to be 60% of the screen size
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.getWidth() * 0.3);
+        int height = (int) (screenSize.getHeight() * 0.6);
+        requestBookFrame.setSize(width, height);
+
+        // Panel to hold the search components
+        JPanel searchPanel = new JPanel();
+        JTextField searchField = new JTextField(20);
+        JButton searchButton = new JButton("Search");
+
+        // Panel to display search results
+        JPanel requestBookPanel = new JPanel();
+        requestBookPanel.setLayout(new BoxLayout(requestBookPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
+
+        // Scroll pane for the search results panel
+        JScrollPane scrollPane = new JScrollPane(requestBookPanel);
+
+        // ActionListener for the search button
+        searchButton.addActionListener(e -> {
+            String searchQuery = searchField.getText().toLowerCase();
+            requestBookPanel.removeAll(); // Clear previous search results
+
+            for (Item book : bookList) {
+                // Check if the book identification number contains the search query
+                if (String.valueOf(book.getIdentificationNumber()).contains(searchQuery)) {
+                    JPanel bookInfoPanel = new JPanel();
+                    bookInfoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Add border
+                    bookInfoPanel.setBackground(Color.WHITE); // Set background color
+                    bookInfoPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align components to the left
+                    bookInfoPanel.setLayout(new BoxLayout(bookInfoPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
+                    bookPointer2 = book;
+
+                    JLabel nameLabel = new JLabel("Name: " + book.getName());
+                    JLabel authorLabel = new JLabel("ItemID: " + book.getIdentificationNumber());
+                    JLabel genreLabel = new JLabel("Available: " + book.getAvailableForPurchase());
+
+                    nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    authorLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    genreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                    JCheckBox checkBox = new JCheckBox("Select");
+                    checkBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                    bookInfoPanel.add(nameLabel);
+                    bookInfoPanel.add(Box.createVerticalStrut(5)); // Add vertical space
+                    bookInfoPanel.add(authorLabel);
+                    bookInfoPanel.add(genreLabel);
+                    bookInfoPanel.add(checkBox);
+
+                    requestBookPanel.add(bookInfoPanel);
+                    requestBookPanel.add(Box.createVerticalStrut(10)); // Add vertical space between boxes
+                }
+            }
+
+            // Refresh the panel to reflect changes
+            requestBookPanel.revalidate();
+            requestBookPanel.repaint();
+        });
+
+        JButton requestButton = new JButton("Request");
+        requestButton.addActionListener(e -> {
+            // Iterate through the book panels to find selected books and add them to the user's request list
+            for (Component component : requestBookPanel.getComponents()) {
+                if (component instanceof JPanel) {
+                    JPanel bookPanel = (JPanel) component;
+                    Component[] components = bookPanel.getComponents();
+                    for (Component innerComponent : components) {
+                        if (innerComponent instanceof JCheckBox) {
+                            JCheckBox checkBox = (JCheckBox) innerComponent;
+                            if (checkBox.isSelected()) {
+                                // Add the selected book to the user's request list
+//                                Item selectedBook = findBookById(Integer.parseInt(bookPanel.getName())); // Implement this method
+                                user1.addRequestBook(bookPointer2);
+                            }
+                        }
+                    }
+                }
+            }
+            // Display confirmation message
+            SwingUtilities.invokeLater(() -> {
+                JOptionPane.showMessageDialog(requestBookFrame, "Selected books have been added to your request list.");
+            });
+        });
+
+        // Add components to the search panel
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+
+        // Add components to the frame
+        requestBookFrame.getContentPane().setLayout(new BorderLayout());
+        requestBookFrame.getContentPane().add(searchPanel, BorderLayout.NORTH);
+        requestBookFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+        requestBookFrame.getContentPane().add(requestButton, BorderLayout.SOUTH);
+
+        requestBookFrame.setVisible(true);
     }
 
 
