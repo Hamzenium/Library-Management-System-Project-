@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -136,6 +137,18 @@ public class User implements Observer{
 	public String addBooks(Item book) throws Exception {
 		if(this.payment.get(book) == true) {
 			this.books.add(book);
+			   LocalDate currentDate = LocalDate.now();
+		        
+		        // Add 7 days to the current date
+		        LocalDate dateAfter7Days = currentDate.plusDays(7);
+		        
+		        // Define a formatter with English locale and desired pattern
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale.ENGLISH);
+		        
+		        // Convert the dateAfter7Days to string using the formatter
+		        String dateStringAfter7Days = dateAfter7Days.format(formatter);
+			
+		        book.setDueDates(dateStringAfter7Days);
 			return "Your book has been added to your list";
 		}
 		else {

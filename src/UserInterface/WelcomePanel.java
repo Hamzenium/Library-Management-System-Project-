@@ -6,16 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WelcomePanel extends JPanel {
+    private LoginPage loginPage;
     private JButton loginButton, signUpButton;
-    private ImageIcon backgroundImage;
-    private ActionListener loginListener; // ActionListener for login button
+    private ActionListener loginListener;
 
     public WelcomePanel(ActionListener loginListener) {
-        this.loginListener = loginListener; // Assign the ActionListener for login button
+        this.loginListener = loginListener;
         setLayout(new BorderLayout());
 
-        // Load the background image (Replace the path with your actual image path)
-        backgroundImage = new ImageIcon("/Users/muhammadhamzasohail/Desktop/Library-Management-Banner.png");
+        // Create a JLabel to hold the background image
+        JLabel backgroundLabel = new JLabel(new ImageIcon("/Users/muhammadhamzasohail/Desktop/Library-Management-Banner.png"));
+        backgroundLabel.setLayout(new BorderLayout());
 
         // Create a label for the heading
         JLabel headingLabel = new JLabel("Welcome to York's Library Management System", SwingConstants.CENTER);
@@ -26,14 +27,8 @@ public class WelcomePanel extends JPanel {
         headingPanel.add(headingLabel, BorderLayout.NORTH);
         headingPanel.add(Box.createVerticalStrut(50), BorderLayout.CENTER); // Add space below the heading
 
-        // Add the heading panel
-        add(headingPanel, BorderLayout.NORTH);
-
-        // Create a label for the background image
-        JLabel imageLabel = new JLabel(backgroundImage);
-
-        // Add the image label
-        add(imageLabel, BorderLayout.CENTER);
+        // Add the heading panel to the background label
+        backgroundLabel.add(headingPanel, BorderLayout.NORTH);
 
         // Create button panel
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -41,8 +36,16 @@ public class WelcomePanel extends JPanel {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Forward the action event to the ActionListener provided by the parent class
-                loginListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Login"));
+                loginPage = new LoginPage(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        loginListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Login"));
+                    }
+                });
+                removeAll();
+                add(loginPage);
+                revalidate();
+                repaint();
             }
         });
         loginButton.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -52,11 +55,11 @@ public class WelcomePanel extends JPanel {
         signUpButton.setFont(new Font("Arial", Font.PLAIN, 24));
         buttonPanel.add(signUpButton);
 
-        add(buttonPanel, BorderLayout.SOUTH);
-    }
+        // Add button panel to the background label
+        backgroundLabel.add(buttonPanel, BorderLayout.SOUTH);
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        // Add the background label to the WelcomePanel
+        add(backgroundLabel, BorderLayout.CENTER);
     }
 }
+

@@ -9,7 +9,8 @@ import Newsletters.Newsletter;
 import Payment.Payment;
 import Users.ManagementTeam;
 import Users.Student;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -147,49 +148,7 @@ public class DashboardPage extends JFrame implements ActionListener {
         }
     }
 
-    private void displayBooks() {
-        JFrame booksFrame = new JFrame("Books");
-
-        // Calculate the size to be 60% of the screen size
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.getWidth() * 0.3);
-        int height = (int) (screenSize.getHeight() * 0.6);
-        booksFrame.setSize(width, height);
-
-        JPanel booksPanel = new JPanel();
-        booksPanel.setLayout(new BoxLayout(booksPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
-
-        for (int i = 0; i < user1.getBooks().size(); i++) {
-            int counter = i + 1;
-            Item book = user1.getBooks().get(i);
-            JPanel bookInfoPanel = new JPanel();
-            bookInfoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Add border
-            bookInfoPanel.setBackground(Color.WHITE); // Set background color
-            bookInfoPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align components to the left
-            bookInfoPanel.setLayout(new BoxLayout(bookInfoPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
-
-            JLabel indexLabel = new JLabel("Book: " + counter);
-            JLabel nameLabel = new JLabel("Name: " + book.getName());
-            JLabel idLabel = new JLabel("ID: " + book.getIdentificationNumber());
-
-            indexLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            idLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-            bookInfoPanel.add(indexLabel);
-            bookInfoPanel.add(Box.createVerticalStrut(5)); // Add vertical space
-            bookInfoPanel.add(nameLabel);
-            bookInfoPanel.add(idLabel);
-
-            booksPanel.add(bookInfoPanel);
-            booksPanel.add(Box.createVerticalStrut(10)); // Add vertical space between boxes
-        }
-
-        JScrollPane scrollPane = new JScrollPane(booksPanel); // Add scroll pane for vertical scrolling
-        booksFrame.add(scrollPane);
-        booksFrame.setLocationRelativeTo(null);
-        booksFrame.setVisible(true);
-    }
+ 
     public static void main(String[] args) throws Exception {
         // Create sample users
     	
@@ -198,6 +157,8 @@ public class DashboardPage extends JFrame implements ActionListener {
       	 
         ArrayList<Item> bookList = new ArrayList<Item>();
         Student user1 = new Student("hamza.sohail29@gmail.com", "hamza123");
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dateAfter7Days = currentDate.plusDays(7);
         // Add some books to user1
         Book javaBook = new Book(2232, "Toronto", true, 3, "20 Jan", true, "Java OOP book","programming");
         Book systemdesignBook = new Book(4343, "Toronto", true, 3, "12 Jan", true, "System Design book","programming");
@@ -285,7 +246,6 @@ public class DashboardPage extends JFrame implements ActionListener {
             }
         });
         welcomeFrame.add(welcomePanel);
-
         welcomeFrame.setVisible(true);
     }
 
@@ -765,6 +725,49 @@ public class DashboardPage extends JFrame implements ActionListener {
         deadlinesFrame.add(scrollPane);
         deadlinesFrame.setLocationRelativeTo(null);
         deadlinesFrame.setVisible(true);
+    }
+    private void displayBooks() {
+        JFrame booksFrame = new JFrame("Books");
+
+        // Calculate the size to be 60% of the screen size
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.getWidth() * 0.3);
+        int height = (int) (screenSize.getHeight() * 0.6);
+        booksFrame.setSize(width, height);
+
+        JPanel booksPanel = new JPanel();
+        booksPanel.setLayout(new BoxLayout(booksPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
+
+        for (int i = 0; i < user1.getBooks().size(); i++) {
+            int counter = i + 1;
+            Item book = user1.getBooks().get(i);
+            JPanel bookInfoPanel = new JPanel();
+            bookInfoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Add border
+            bookInfoPanel.setBackground(Color.WHITE); // Set background color
+            bookInfoPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align components to the left
+            bookInfoPanel.setLayout(new BoxLayout(bookInfoPanel, BoxLayout.Y_AXIS)); // Set Y_AXIS alignment
+
+            JLabel indexLabel = new JLabel("Book: " + counter);
+            JLabel nameLabel = new JLabel("Name: " + book.getName());
+            JLabel idLabel = new JLabel("ID: " + book.getIdentificationNumber());
+
+            indexLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            idLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            bookInfoPanel.add(indexLabel);
+            bookInfoPanel.add(Box.createVerticalStrut(5)); // Add vertical space
+            bookInfoPanel.add(nameLabel);
+            bookInfoPanel.add(idLabel);
+
+            booksPanel.add(bookInfoPanel);
+            booksPanel.add(Box.createVerticalStrut(10)); // Add vertical space between boxes
+        }
+
+        JScrollPane scrollPane = new JScrollPane(booksPanel); // Add scroll pane for vertical scrolling
+        booksFrame.add(scrollPane);
+        booksFrame.setLocationRelativeTo(null);
+        booksFrame.setVisible(true);
     }
 
 

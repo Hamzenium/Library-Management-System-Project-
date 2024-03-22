@@ -1,5 +1,9 @@
 package Items;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 import LibraryManagementSystem.LibraryManagementSystem;
 
 public class PhyscialItem extends Item {
@@ -10,8 +14,17 @@ public class PhyscialItem extends Item {
 	
 	public PhyscialItem(int id, String location, Boolean availableForPurchase, String name, int copies, String dueDate, Boolean itemStatus,String category) {
 		super(id,location,availableForPurchase,name,category);
+		LocalDate currentDate = LocalDate.now();
+        
+        // Add 7 days to the current date
+        LocalDate dateAfter7Days = currentDate.plusDays(7);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale.ENGLISH);
+        
+        // Convert the dateAfter7Days to string using the formatter
+        String dateStringAfter7Days = dateAfter7Days.format(formatter);
 		this.copies = copies;
-		this.dueDate = dueDate;
+		this.dueDate = dateStringAfter7Days;
 		this.itemStatus = itemStatus;
 		
 		LibraryManagementSystem system = LibraryManagementSystem.getInstance();
@@ -45,5 +58,11 @@ public class PhyscialItem extends Item {
 	@Override
 	public String getDueDates() {
 		return this.dueDate;
+	}
+
+	@Override
+	public String setDueDates(String date) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
