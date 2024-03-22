@@ -3,6 +3,12 @@ package Users;
 import LibraryManagementSystem.LibraryManagementSystem;
 import Newsletters.Newsletter;
 import Newsletters.Observer;
+import Payment.PenaltyCalculationStrategy;
+import Payment.StudentPenaltyCalculationStrategy;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +17,8 @@ import java.util.Set;
 import java.util.Stack;
 
 import Items.Item;
+import Items.OnlineBook;
+import Items.PhyscialItem;
 
 public class User implements Observer{
 	
@@ -220,7 +228,7 @@ public HashMap<Item, Boolean> getreqBookList() {
 	}
 	
 	
-	public String requestNewBook(String bookName) throws Exception {
+	public String requestNewBook(String bookName, String category) throws Exception {
 		
 		LibraryManagementSystem system = LibraryManagementSystem.getInstance();
 		
@@ -236,18 +244,21 @@ public HashMap<Item, Boolean> getreqBookList() {
 				
 				ManagementTeam managementTeam = ManagementTeam.getInstance("email", "psw");
 				
-				managementTeam.addRequestedBook(bookName);
+				managementTeam.addRequestedBook(bookName, category);
 				
 				for (int j=0; j<system.getCourse().size(); j++) {
 					
 					
-					if (system.getCourse().get(j).getTextBook().getName().equals(bookName)) {
+					if (system.getCourse().get(j).getTextBook().equals(bookName)) {
 						
+						System.out.println("Priority for requested book is high");
 						return "Priority for requested book is high";
+						
 					}
 					
 				}
 				
+				System.out.println("Priority for requested book is low");
 				return "Priority for requested book is low";
 				
 			}
@@ -278,6 +289,91 @@ public HashMap<Item, Boolean> getreqBookList() {
 		public void setNotifications(Item notifications) {
 			this.notifications.add(notifications);
 		}
+	
+	public String returnBook(Item book) {
+		
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+	        LocalDate due = LocalDate.parse(book.getDueDates(), formatter);
+	        LocalDate returned = LocalDate.now();
+
+	        long overDue = ChronoUnit.DAYS.between(due, returned);
+	        double penalty = 0;
+	        
+	        if (overDue > 0) {
+	        
+	        
+	        if (this instanceof Student) {
+	        	
+	        	StudentPenaltyCalculationStrategy calculator = new StudentPenaltyCalculationStrategy();
+	        	
+	        	 penalty = calculator.calculatePenalty(overDue);
+	        	
+	        }
+	        
+	        else {
+	        	
+	        	PenaltyCalculationStrategy calculator = new PenaltyCalculationStrategy();
+	        	
+	        	 penalty = calculator.calculatePenalty(overDue);
+	        	
+	        }
+	        
+	        this.books.remove(book);
+	        System.out.println(overDue);
+	        System.out.println(penalty);
+	        return "You have been charged a penalty of" + penalty;
+	        
+	        }
+
+	        else {
+	        	
+	        	this.books.remove(book);
+	        	return "your book has been returned";
+	        	
+	        }
+		
+		
+	}
+	
+	public Item searchItem(String name) throws Exception{
+		
+		LibraryManagementSystem system = LibraryManagementSystem.getInstance();
+		
+		for (int i=0; i<system.getOnlineBooks().size(); i++) {
+			
+			if(system.getOnlineBooks().get(i).getName().equals(name)) {
+				system.showRecommendations(system.getOnlineBooks().get(i));
+				return system.getOnlineBooks().get(i);
+			}
+		}
+		
+		for (int j=0; j<system.getPhysicalItem().size(); j++) {
+			
+			if(system.getPhysicalItem().get(j).getName().equals(name)) {
+				system.showRecommendations(system.getPhysicalItem().get(j));
+				return system.getPhysicalItem().get(j);
+			}
+		}
+		
+		
+		throw new Exception("Item not found");
+		
+	}
+	
+	public ArrayList<Item> getreccomendations(){
+		
+		LibraryManagementSystem system = LibraryManagementSystem.getInstance();
+		 ArrayList<Item> recommendations = new ArrayList<>();
+		
+		for (int i = 0; i < this.books.size() && i < 2; i++) {
+			
+			recommendations.addAll(system.showRecommendations(this.books.get(i)));
+		}
+		return recommendations;
+		
+		
+	}
 		
 	
 }

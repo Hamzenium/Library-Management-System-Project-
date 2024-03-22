@@ -6,20 +6,23 @@ public abstract class Item {
 	private String location;
 	private Boolean availableForPurchase;
 	private String name;
+	private String category;
 	
-    public Item(int id, String location, Boolean availableForPurchase,String name){
+    public Item(int id, String location, Boolean availableForPurchase,String name, String category){
 		
 		this.identificationNumber = id;
 		this.location = location;
 		this.availableForPurchase = availableForPurchase;
 		this.name = name;
+		this.category = category;
 		
 	}
     
-public Item(int id,String name){
+public Item(int id,String name, String category){
 		
 		this.identificationNumber = id;
 		this.name = name;
+		this.category = category;
 		
 	}
 
@@ -56,4 +59,13 @@ public Item(int id,String name){
 	}
 	
 	public abstract String getDueDates();
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 }

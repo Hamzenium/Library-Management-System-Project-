@@ -7,8 +7,8 @@ public class CourseTextbook extends OnlineBook {
 	
 	private String courseName;
 
-	public CourseTextbook(int id, String name, String course) {
-		super(id, name);
+	public CourseTextbook(int id, String name, String course,String category) {
+		super(id, name,category);
 		this.courseName = course;
 		
 		LibraryManagementSystem system = LibraryManagementSystem.getInstance();

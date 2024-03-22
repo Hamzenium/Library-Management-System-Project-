@@ -33,13 +33,13 @@ public class ManagementTeam extends User {
 		return instance;
 	}
 	
-	public void addRequestedBook(String bookName) {
+	public void addRequestedBook(String bookName, String category) {
 		
 		Random random = new Random();
 		
 		int randomNumber = random.nextInt(101);
 		
-		OnlineBook book = new OnlineBook(randomNumber, bookName);
+		OnlineBook book = new OnlineBook(randomNumber, bookName, category);
 		
 	}
 

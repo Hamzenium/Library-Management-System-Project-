@@ -4,8 +4,8 @@ import LibraryManagementSystem.LibraryManagementSystem;
 
 public class OnlineBook extends Item {
 	
-	public OnlineBook(int id,String name) {
-		super(id,name);
+	public OnlineBook(int id,String name, String category) {
+		super(id,name, category);
 		
 		LibraryManagementSystem system = LibraryManagementSystem.getInstance();
 		system.getOnlineBooks().add(this);

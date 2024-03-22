@@ -6,6 +6,7 @@ import java.util.HashMap;
 import Courses.Course;
 import Items.Item;
 import Items.OnlineBook;
+import Items.PhyscialItem;
 import Users.Student;
 import Users.User;
 
@@ -16,12 +17,14 @@ public class LibraryManagementSystem {
 	private  ArrayList<User> loggedInUsers;
 	private  ArrayList<OnlineBook> onlineBooks;
 	private  ArrayList<Course> course;
+	private ArrayList<PhyscialItem> physicalItem;
 	
 	private LibraryManagementSystem() {
 		
 		this.onlineBooks = new ArrayList<>();
 		this.loggedInUsers = new ArrayList<>();
 		this.course =  new ArrayList<>();
+		this.physicalItem =  new ArrayList<>();
 	}
 	
 	public static LibraryManagementSystem getInstance() {
@@ -47,6 +50,17 @@ public class LibraryManagementSystem {
 
 	public void addCourse(Course course) {
 		this.course.add(course);
+	}
+	
+	public ArrayList<PhyscialItem> getPhysicalItem(){
+		
+		return this.physicalItem;
+	}
+	
+	public void addPhyscialItem(PhyscialItem item) {
+		
+		this.physicalItem.add(item);
+		
 	}
 
 	public Course searchCourse(String search) {
@@ -95,6 +109,36 @@ public class LibraryManagementSystem {
 	                }
 	            }
 	        }
+	    }	
+	    	
 	    }
+	    
+	   public ArrayList<Item> showRecommendations(Item item){
+		   
+		   ArrayList<Item> reccomendations = new ArrayList<>();
+		   
+		   for (int i=0; i<instance.getOnlineBooks().size();i++) {
+			   
+			   if (instance.getOnlineBooks().get(i).getCategory().equals(item.getCategory())
+					   && !instance.getOnlineBooks().get(i).getName().equals(item.getName())) {
+				   
+				   reccomendations.add(instance.getOnlineBooks().get(i));
+				   
+			   }
+			   
+		   }
+		   
+       for (int j=0; j<instance.getPhysicalItem().size();j++) {
+			   
+			   if (instance.getPhysicalItem().get(j).getCategory().equals(item.getCategory())
+					   && !instance.getPhysicalItem().get(j).getName().equals(item.getName())) {
+				   
+				   reccomendations.add(instance.getPhysicalItem().get(j));
+				   
+			   }
+			   
+		   }
+		return reccomendations;   
+	    
 	}
 	}
