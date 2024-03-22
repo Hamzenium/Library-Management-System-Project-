@@ -1,10 +1,10 @@
 package Users;
 
 import LibraryManagementSystem.LibraryManagementSystem;
+
 import Newsletters.Newsletter;
 import Newsletters.Observer;
-import Payment.PenaltyCalculationStrategy;
-import Payment.StudentPenaltyCalculationStrategy;
+import Payment.PenaltyPaymentDecorator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -333,24 +333,8 @@ public HashMap<Item, Boolean> getreqBookList() {
 	        long overDue = ChronoUnit.DAYS.between(due, returned);
 	        double penalty = 0;
 	        
+	        
 	        if (overDue > 0) {
-	        
-	        
-	        if (this instanceof Student) {
-	        	
-	        	StudentPenaltyCalculationStrategy calculator = new StudentPenaltyCalculationStrategy();
-	        	
-	        	 penalty = calculator.calculatePenalty(overDue);
-	        	
-	        }
-	        
-	        else {
-	        	
-	        	PenaltyCalculationStrategy calculator = new PenaltyCalculationStrategy();
-	        	
-	        	 penalty = calculator.calculatePenalty(overDue);
-	        	
-	        }
 	        
 	        this.books.remove(book);
 	        System.out.println(overDue);
