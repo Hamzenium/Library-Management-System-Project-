@@ -36,8 +36,8 @@ public class MainTest {
 public static void main(String[] args) throws Exception {
 //	    
 	    Visitors user1 = new Visitors("Hamza13", "hamza.sohail29@gmail.com");
-	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
-	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
+	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book","programming");
+	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book","programming");
 	    user1.addRequestBook(javaBook);
 	    user1.addRequestBook(systemdesginBook);
 	    user1.getBooks();
@@ -151,11 +151,11 @@ public static void main(String[] args) throws Exception {
        // Apply discount twice
   
           // Now 'payment' is wrapped with DiscountedPaymentDecorator twice
-          payment2.makePayment(user, b6);
-          user.addBooks(b6);
-          
-          
-          
+//          payment2.makePayment(user, b6);
+//          user.addBooks(b6);
+//          
+//          
+//          
 //          user.addRequestBook(b10);
 //          ManagementTeam team2 = ManagementTeam.getInstance("email", "psw");
 //          Payable payment3 = new Payment();
@@ -165,6 +165,8 @@ public static void main(String[] args) throws Exception {
 //          team2.enableItem(user, b10);
 //          payment4.makePayment(user, b10);
 //          user.addBooks(b10);
+          
+          Newsletter geonews = new Newsletter("CricTime Newsletter");
           
           
           
@@ -233,20 +235,47 @@ public static void main(String[] args) throws Exception {
 //          System.out.println(system.getLoggedInUsers());
 //          System.out.println(system.getOnlineBooks());
           
-          Newsletter geonews = new Newsletter("CricInfo Newsletter");
-          
+//          Newsletter geonews = new Newsletter("CricInfo Newsletter");
+//          
           user.subscribe(geonews);
           String word ="heelo !";
           geonews.update(word);
-
-
-}
-     
-
           
-        //   System.out.println("\n");
-          
-          
+          //   user.addRequestBook(cd3);
+          //   ManagementTeam team3 = ManagementTeam.getInstance("email", "psw");
+          //   Payable payment5 = new Payment();
+          //   Payable payment6 = new DiscountedPaymentDecorator(payment5); // Applying discount
+            
+          //   team3.verifyClient(user, true);
+          //   team3.enableItem(user, cd3);
+          //   payment6.makePayment(user,cd3);
+          //   user.addBooks(cd3);
+            
+          //   for (int i =0; i<user.getBooks().size(); i++) {
+          	  
+          // 	  System.out.print(user.getBooks().get(i).getName()+ ",");
+          	  
+          //   }
+            
+          //   System.out.println("\n");
+            
+          //   ArrayList<Item> test = user.getreccomendations();
+            
+          //  for (int i =0; i<test.size(); i++) {
+          	  
+          // 	  System.out.print(test.get(i).getName()+ ",");
+          	  
+          //   }
+            
+          //  System.out.println("\n");
+//            
+//        for (int i =0; i<system.getPhysicalItem().size(); i++) {
+//          	  
+//          	  System.out.print(system.getPhysicalItem().get(i).getName()+ ",");
+//          	  
+//            }
+//            
+//            System.out.println("\n");
         //   user.addRequestBook(cd3);
         //   ManagementTeam team3 = ManagementTeam.getInstance("email", "psw");
         //   Payable payment5 = new Payment();
@@ -282,6 +311,15 @@ public static void main(String[] args) throws Exception {
 //          }
 //          
 //          System.out.println("\n");
+
+
+}
+     
+
+          
+        //   System.out.println("\n");
+          
+
         
          
 }

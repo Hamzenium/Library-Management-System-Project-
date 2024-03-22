@@ -24,9 +24,8 @@ public class Newsletter implements Subject {
 
 	public void update(String newsletterName) {
 		for (User user: subscribers) {
-			user.update(newsletterName);
+			user.update(this.name+": " + newsletterName);
 		}
-		sendNewsletter();
 		
 	}
 

@@ -18,8 +18,24 @@ public class LoginPage extends JPanel {
         setLayout(new BorderLayout());
         actionListener = listener;
 
+        // Load the background image
+        try {
+            backgroundImage = ImageIO.read(new File("/Users/muhammadhamzasohail/Desktop/beige-abstract-wallpaper-background-image.jpg"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Create a panel for sign-in components
-        JPanel signInPanel = new JPanel(new GridBagLayout());
+        JPanel signInPanel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Draw the background image
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
         signInPanel.setOpaque(false); // Make the panel transparent
 
         // Create constraints for layout
@@ -80,15 +96,6 @@ public class LoginPage extends JPanel {
         add(signInPanel, BorderLayout.CENTER);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // Draw the background image
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        }
-    }
-
     public String getEmail() {
         return emailField.getText();
     }
@@ -97,5 +104,4 @@ public class LoginPage extends JPanel {
         return new String(passwordField.getPassword());
     }
 }
-
 

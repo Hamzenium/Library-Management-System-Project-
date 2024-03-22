@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -32,7 +33,7 @@ public class User implements Observer{
 	protected HashMap<Item,Boolean> requestBook;
 	private HashMap<Item,Boolean> payment;
 	private HashMap<Item,Double> discount;
-	private HashSet<Newsletter> newsletterList;
+	private Stack<String> newsletterList;
 	private Stack<Item> notifications;
 
 	public User(String email, String psw) {
@@ -45,7 +46,7 @@ public class User implements Observer{
 		this.requestBook = new HashMap<Item,Boolean>();
 		this.payment = new HashMap<Item,Boolean>();
 		this.discount = new HashMap<Item,Double>();
-		this.newsletterList = new HashSet<Newsletter>();
+		this.newsletterList = new Stack<String>();
 		this.notifications =  new Stack<Item>();
 	}
 
@@ -136,6 +137,18 @@ public class User implements Observer{
 	public String addBooks(Item book) throws Exception {
 		if(this.payment.get(book) == true) {
 			this.books.add(book);
+			   LocalDate currentDate = LocalDate.now();
+		        
+		        // Add 7 days to the current date
+		        LocalDate dateAfter7Days = currentDate.plusDays(7);
+		        
+		        // Define a formatter with English locale and desired pattern
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale.ENGLISH);
+		        
+		        // Convert the dateAfter7Days to string using the formatter
+		        String dateStringAfter7Days = dateAfter7Days.format(formatter);
+			
+		        book.setDueDates(dateStringAfter7Days);
 			return "Your book has been added to your list";
 		}
 		else {
@@ -218,6 +231,14 @@ public HashMap<Item, Boolean> getreqBookList() {
 		this.requestBook.put(item,true);
 
 	}
+	public HashMap<Item, Boolean> getRequestBook() {
+		return this.requestBook;
+
+	}
+	public Stack<String> getNewsletter() {
+		return this.newsletterList;
+
+	}
 	public void applyDiscount(Item item, Double value) {
 		this.discount.put(item, value);
 	}
@@ -226,6 +247,7 @@ public HashMap<Item, Boolean> getreqBookList() {
 		System.out.println(this.discount.get(item));
 		return this.discount.get(item);
 	}
+
 	
 	
 	public String requestNewBook(String bookName, String category) throws Exception {
@@ -263,24 +285,35 @@ public HashMap<Item, Boolean> getreqBookList() {
 				
 			}
 	   public void update(String newsletterName) {
-	        System.out.println("Received the latest newsletter: " + newsletterName);
+		   
+		   this.newsletterList.add(newsletterName);
+	       System.out.println("Received the latest newsletter: " + newsletterName);
 	    }
 
 
 	    public void subscribe(Newsletter newsletter) {
 	        newsletter.registerObserver(this);
-	        newsletterList.add(newsletter);
 	        System.out.println("Subscribed to newsletter: " + newsletter.getName());
 	    }
 
 	    public void cancel(Newsletter newsletter) {
 	        newsletter.unregisterObserver(this);
-	        newsletterList.remove(newsletter);
 	        System.out.println("Unsubscribed from newsletter: " + newsletter.getName());
 	    }
 
 		public Stack<Item> getNotifications() {
 			return notifications;
+		}
+		public ArrayList<String> viewNewsletter() {
+			
+			ArrayList<String> list = new ArrayList<String>();
+			for(String word: this.getNewsletter()) {
+				list.add(word);
+			}
+			return list;
+		}
+		public void clearNewsletter() {
+			this.newsletterList.clear();
 		}
 		public void clearNotifications() {
 			notifications.clear();;;

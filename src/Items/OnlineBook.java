@@ -20,6 +20,12 @@ public class OnlineBook extends Item {
 		
 		return "Not a course Textbook";
 	}
+
+	@Override
+	public String setDueDates(String date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

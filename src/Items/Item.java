@@ -59,6 +59,8 @@ public Item(int id,String name, String category){
 	}
 	
 	public abstract String getDueDates();
+	
+	public abstract String setDueDates(String date);
 
 	public String getCategory() {
 		return category;
