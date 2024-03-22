@@ -36,8 +36,8 @@ public class MainTest {
 public static void main(String[] args) throws Exception {
 //	    
 	    Visitors user1 = new Visitors("Hamza13", "hamza.sohail29@gmail.com");
-	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
-	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
+	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book","programming");
+	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book","programming");
 	    user1.addRequestBook(javaBook);
 	    user1.addRequestBook(systemdesginBook);
 	    user1.getBooks();
@@ -151,11 +151,11 @@ public static void main(String[] args) throws Exception {
        // Apply discount twice
   
           // Now 'payment' is wrapped with DiscountedPaymentDecorator twice
-          payment2.makePayment(user, b6);
-          user.addBooks(b6);
-          
-          
-          
+//          payment2.makePayment(user, b6);
+//          user.addBooks(b6);
+//          
+//          
+//          
 //          user.addRequestBook(b10);
 //          ManagementTeam team2 = ManagementTeam.getInstance("email", "psw");
 //          Payable payment3 = new Payment();

@@ -218,6 +218,10 @@ public HashMap<Item, Boolean> getreqBookList() {
 		this.requestBook.put(item,true);
 
 	}
+	public HashMap<Item, Boolean> getRequestBook() {
+		return this.requestBook;
+
+	}
 	public void applyDiscount(Item item, Double value) {
 		this.discount.put(item, value);
 	}
@@ -226,6 +230,7 @@ public HashMap<Item, Boolean> getreqBookList() {
 		System.out.println(this.discount.get(item));
 		return this.discount.get(item);
 	}
+
 	
 	
 	public String requestNewBook(String bookName, String category) throws Exception {

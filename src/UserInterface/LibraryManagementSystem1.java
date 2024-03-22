@@ -36,8 +36,8 @@ public class LibraryManagementSystem1 extends JFrame implements ActionListener {
         cardPanel.add(loginPage, "Login");
 
         // Initialize the dashboard page
-        dashboardPage = new DashboardPage(currentUser);
-        cardPanel.add(dashboardPage, "Dashboard");
+//        dashboardPage = new DashboardPage(currentUser);
+//        cardPanel.add(dashboardPage, "Dashboard");
 
         // Initialize the welcome panel
         welcomePanel = new WelcomePanel(this);
@@ -75,7 +75,7 @@ public class LibraryManagementSystem1 extends JFrame implements ActionListener {
                 // If a match is found, assign the user to currentUser
                 currentUser = user;
                 // Update the DashboardPage with the user information
-                dashboardPage.setUser(currentUser);
+//                dashboardPage.setUser(currentUser);
                 // Switch to the DashboardPage
                 cardLayout.show(cardPanel, "Dashboard");
                 return; // Exit the loop if user is found
@@ -105,21 +105,11 @@ public class LibraryManagementSystem1 extends JFrame implements ActionListener {
             LibraryManagementSystem system = LibraryManagementSystem.getInstance();
 
             // Create sample users
-            Student user1 = new Student("hamza.sohail29@gmail.com", "hamza123");
-    	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
-    	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
-            // Set logged-in users
-            system.setLoggedInUsers(user1);
-            user1.addRequestBook(javaBook);
-            
-            ManagementTeam team = ManagementTeam.getInstance("email", "psw");
-    	    Payment payment = new Payment();
- 
-    	    team.enableItem(user1, javaBook);
-    	    team.enableItem(user1, systemdesginBook);
-    	    team.verifyClient(user1, true);
-            
-
+//            Student user1 = new Student("hamza.sohail29@gmail.com", "hamza123");
+//    	    Book javaBook = new Book(2, "Toronto", true, 3, "12 Jan", true, "Java OOP book");
+//    	    Book systemdesginBook = new Book(4, "Toronto", true, 3, "12 Jan", true, "System Design book");
+//            // Set logged-in users
+//     s
             // Get logged-in users
             ArrayList<User> loggedInUsers = system.getLoggedInUsers();
             for (User user : loggedInUsers) {
